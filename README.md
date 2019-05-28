@@ -17,11 +17,20 @@ Hazelcast Desktop is open source and downloadable from https://github.com/netcre
 
 ## Compiling Hazelcast Desktop
 
+To compile Hazelcast Desktop, you must first obtain the hazelcast-addon library provided by Hazelcast Consulting team. This library comes in the form of a single jar file which must be installed in the local repository by executing the following:
+
+```
+mvn install:install-file -Dfile=<path-to-hazelcast-addon-file> -DgroupId=org.hazelcast.addon \
+    -DartifactId=hazelcast-addon -Dversion=<version> -Dpackaging=jar
+```
+
+Once the hazelcast-addon libary has been installed in your local repository, you can build the desktop as follows:
+
 ```
 mvn -DskipTests install
 ```
 
-The Hazelcast Desktop distribution is assembled in the following directory:
+Upon successful build, you can find the Hazelcast Desktop distribution in the following `assemly` directory:
 
 ```
 ls hazelcast-desktop-deployment/target/assembly/
@@ -32,19 +41,18 @@ hazelcast-desktop_0.1.0-SNAPSHOT.tar.gz	hazelcast-desktop_0.1.0-SNAPSHOT.zip
 
 1. Unzip the `hazelcast-desktop_<version>.zip` file anywhere in the file system. It will create the `hazelcast-desktop_<version>` root directory.
 2. Edit `bin_win\setenv.bat` or `bin_sh/setenv.sh` to include the correct paths for **JAVA_HOME** and **CODEBASE_URL**.
-3. Hazelcast Desktop requires the Hazelcast addon library which must be obtained from Hazelcast by contacting the Hazelcast Consulting group. This library comes in the form of a single jar file. Place it in the `plugins/` directory.
 
-## Supported Java Versions
+## Java Versions
 
 Hazelcast Desktop runs on Java 1.8 or later versions.
 
 
 ## Running Hazelcast Desktop
 
-By default, Hazelcast Desktop shows the login window during startup. To use the login window, all of Hazelcat client configuration must be done in the `etc/pado.properties` file. To disable the login window and use the `etc/hazelcast-client.xml` file instead, set the `hazelcast.client.config.file.enabled` properpty in the `etc/pado.properties` as follows:
+By default, Hazelcast Desktop shows the login window during startup. To use the login window, all of Hazelcat client configuration must be done in the `etc/pado.properties` file. To disable the login window and use the `etc/hazelcast-client.xml` file instead, set the `hazelcast.client.config.file.enabled` properpty to `true` in the `etc/pado.properties` as follows:
 
 ```
-hazelcast.client.config.file.enabled=false
+hazelcast.client.config.file.enabled=true
 ```
 
 ### Linux/MacOS
@@ -78,7 +86,7 @@ The login dialog may require a valid app ID, user name, and password. If you are
 
 ## Desktop Templates
 
-For Java 1.8, 11, and 12, Hazelcast Desktop initally opens with the preconfigured worksheet named *HazelcastExplorer*. If for some reason, the desktop does not display the HazelcastExplorer worksheet then you can open the appropriate teamplate by selecting the pulldown menu, `File/Open...` The templates are included in the `etc/` directory. You can also layout the screen yourself as described below.
+For Java 1.8, 11, and 12, Hazelcast Desktop initially opens with the preconfigured worksheet named *HazelcastExplorer*. If for some reason, the desktop does not display the HazelcastExplorer worksheet then you can open the appropriate teamplate by selecting the pulldown menu, `File/Open...` The templates are included in the `etc/` directory. You can also layout the screen yourself as described below.
 
 ## Screen Layout
 
