@@ -1,0 +1,50 @@
+# Maven build folders
+target/
+deploy/
+
+user.build.properties
+
+# MacOSX files
+.DS_Store
+
+# NetBeans user configuration files
+nbactions*.xml
+/nbproject/private/
+*/nbproject/private/
+
+# IntelliJ projects
+*.iws
+.idea/*
+
+# Eclipse projects
+.classpath
+.project
+.settings/
+.metadata
+
+# Profiler results
+*.hprof
+
+# Generated files
+tmp/
+
+# Configurable build files
+bilder.py
+bilder.pyc
+bild.log
+
+# Backup files
+*.bak
+.swp
+archive
+*.gfs
+*.log
+
+# Python
+.pydevproject
+*.pyc
+
+# Development
+copyjar*
+/etc
+/lib

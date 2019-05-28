@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. ./setenv.sh
+
+rm -f $LOG_DIR/*.log

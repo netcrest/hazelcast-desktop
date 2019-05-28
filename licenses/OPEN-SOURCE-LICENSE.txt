@@ -1,0 +1,5 @@
+The following files are under open source licensing terms which are available from the respective web sites.
+
+bin_win\XXMKLINK.EXE 
+   http://trac.osgeo.org/osgeo4w/wiki
+   xxmlink.exe is part of msvcrt package maintained by OSGeo4W.

@@ -1,0 +1,108 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+	<id>id.hazelcast-desktop-assembly</id>
+	<formats>
+		<format>zip</format>
+		<format>tar.gz</format>
+	</formats>
+	<includeBaseDirectory>true</includeBaseDirectory>
+	<baseDirectory>hazelcast-desktop_${hazelcast-desktop.version}</baseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<useProjectArtifact>false</useProjectArtifact>
+			<excludes>
+				<exclude>com.netcrest.pado:*</exclude>
+				<exclude>antlr:antlr</exclude>
+				<exclude>org.apache.ant</exclude>
+				<exclude>org.slf4j:*</exclude>
+				<exclude>junit:*</exclude>
+				<exclude>commons-io*</exclude>
+				<exclude>dom4j*</exclude>
+				<exclude>com.fasterxml.jackson.core:*</exclude>
+				<exclude>org.apache.logging.log4j:*</exclude>
+				<exclude>xml-apis*</exclude>
+				<exclude>xom*</exclude>
+				<exclude>org.apache.lucene:lucene*</exclude>
+			</excludes>
+			<outputDirectory>lib/</outputDirectory>
+		</dependencySet>
+		
+		<!-- Pado -->
+		<dependencySet>
+			<useProjectArtifact>false</useProjectArtifact>
+			<includes>
+				<include>com.netcrest.pado:*</include>
+			</includes>
+			<outputDirectory>lib/pado</outputDirectory>
+		</dependencySet>
+	</dependencySets>
+
+	<fileSets>
+		<!-- Collect all resources -->
+		<fileSet>
+			<directory>src/main/resources</directory>
+			<excludes>
+				<exclude>bin_sh/**</exclude>
+				<exclude>doc/**</exclude>
+			</excludes>
+			<outputDirectory>
+			</outputDirectory>
+		</fileSet>
+		
+		<!-- Internal lib and plugins -->
+		<fileSet>
+			<directory>../lib</directory>
+			<outputDirectory>lib</outputDirectory>
+		</fileSet>
+
+		<!-- Executable permissions -->
+		<fileSet>
+			<directory>src/main/resources/bin_sh</directory>
+			<outputDirectory>bin_sh</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+			<fileMode>0755</fileMode>
+			<directoryMode>0755</directoryMode>
+		</fileSet>
+		<fileSet>
+			<directory>../src/main/resources/bin_win</directory>
+			<outputDirectory>bin_win</outputDirectory>
+			<includes>
+				<include>**</include>
+			</includes>
+			<fileMode>0755</fileMode>
+			<directoryMode>0755</directoryMode>
+		</fileSet>
+
+		<fileSet>
+			<directory>..</directory>
+			<includes>
+				<include>license/**</include>
+				<include>LICENSE.txt</include>
+				<include>NOTICE</include>
+				<include>README.txt</include>
+				<include>RELEASE_NOTES.txt</include>
+			</includes>
+			<outputDirectory>.</outputDirectory>
+		</fileSet>
+
+		<!-- Create the required empty directories -->
+		<fileSet>
+			<directory>./</directory>
+			<outputDirectory>log</outputDirectory>
+			<excludes>
+				<exclude>*/**</exclude>
+			</excludes>
+		</fileSet>
+		<fileSet>
+			<directory>./</directory>
+			<outputDirectory>plugins</outputDirectory>
+			<excludes>
+				<exclude>*/**</exclude>
+			</excludes>
+		</fileSet>
+	</fileSets>
+
+</assembly>

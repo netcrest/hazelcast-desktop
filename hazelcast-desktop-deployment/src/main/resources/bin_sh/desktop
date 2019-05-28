@@ -1,0 +1,15 @@
+#!/bin/bash
+
+. ./setenv.sh 
+
+LAF=-Dswing.defaultlaf=org.jvnet.substance.SubstanceLookAndFeel
+# LAF=-Dswing.defaultlaf=com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel
+# LAF=-Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel
+# LAF=-Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel
+# LAF=-Dswing.defaultlaf=com.sun.java.swing.plaf.windows.WindowsLookAndFeel
+
+LOG_FILE=$LOG_DIR/desktop.log
+pushd $BASE_DIR > /dev/null 2>&1
+$JAVA $JAVA_OPTS $LAF com.netcrest.ui.desktop.Desktop > $LOG_FILE 2>&1 &
+popd > /dev/null 2>&1
+

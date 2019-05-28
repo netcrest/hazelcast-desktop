@@ -1,0 +1,47 @@
+Netcrest Pado-Web, Pado-Desktop, and Hazelcast-Desktop Open Source Licenses
+===========================================================================
+
+Open Source Licenses
+--------------------
+
+The following lists open source components distributed with this software product. Please see their respective license files found in the license directory.
+
+Apache License, V2.0
+
+   commons-codec-1.9.jar		
+   commons-lang3-3.3.2.jar		
+   guava-r08.jar
+   joda-time-2.9.1.jar
+   log4j-1.2.7.jar
+   pado-*.jar
+
+BSD License
+
+   antlr4-runtime-4.7.2.jar
+
+MOZILLA PUBLIC LICENSE - V 1.1
+   javassist-3.12.1.GA.jar
+
+Open Source License
+   bin_win\XXMKLINK.EXE
+
+Substance License
+   substance.jar
+ 
+The 3-Clause BSD License
+   hamcrest-core-1.3.jar
+   
+The GNU Lesser General Public License, verion 3 (LGPL-3)
+   swingx-all-1.6.3.jar   
+   swingx-beaninfo-1.6.3.jar
+
+WTFPL License
+   reflections-0.9.5.jar
+
+Commercial Licenses
+-------------------
+
+Pado Desktop supports the commercial product(s) listed below. Each product may have their respective licensing terms and trade marks. These products are not part of the Pado Desktop distribution and must be separately installed with valid licensing agreements from the respective vendors.
+ 
+   Hazelcast IMDG
+   Pivotal (TM) GemFire(R)

@@ -1,0 +1,10 @@
+Hazelcast-Desktop
+=================
+
+©2019 Netcrest Technologies, LLC. All rights reserved.
+
+Release: Version 0.1.0
+Release Date: 05/27/2019
+
+- Initial release.
+*************************************************************************
