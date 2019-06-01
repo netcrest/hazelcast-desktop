@@ -12,6 +12,10 @@
 		<dependencySet>
 			<useProjectArtifact>false</useProjectArtifact>
 			<excludes>
+				<!-- Remove hazelcast-all jars. Required jars
+				     are hazelcast and hazelcast-client. -->
+				<exclude>com.hazelcast:hazelcast-all</exclude>
+				<exclude>com.hazelcast:hazelcast-enterprise-all</exclude>
 				<exclude>com.netcrest.pado:*</exclude>
 				<exclude>antlr:antlr</exclude>
 				<exclude>org.apache.ant</exclude>
