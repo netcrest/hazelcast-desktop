@@ -24,9 +24,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
-		<pado.version>0.4.3-B1</pado.version>
 		<gemfire.version>8.2.0</gemfire.version>
-		<hazelcast-addon.version>0.1.2</hazelcast-addon.version>
 	</properties>
 
 	<repositories>
