@@ -120,14 +120,15 @@ public class HazelcastSharedCache implements ISharedCache {
 			registerSerializationClasses("hazelcast.client.config.serialization.portable.factories", clientConfig);
 			registerSerializationClasses("hazelcast.client.config.serialization.dataSerializable.factories", clientConfig);
 
-			Credentials credentials = new UsernamePasswordCredentials(username, new String(password));
-			clientConfig.setCredentials(credentials);
+			// Hack - see if we can connect without authentication. We do this because if
+			// the server has not been configured for authentication then the credential
+			// configuration will fail.
 			try {
 				hz = HazelcastClient.newHazelcastClient(clientConfig);
-			} catch (AuthenticationException ex) {
-				ex.printStackTrace();
 			} catch (Throwable th) {
-				throw th;
+				Credentials credentials = new UsernamePasswordCredentials(username, new String(password));
+				clientConfig.setCredentials(credentials);
+				hz = HazelcastClient.newHazelcastClient(clientConfig);
 			}
 		}
 
