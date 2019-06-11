@@ -1,6 +1,6 @@
 # Maven build folders
 target/
-deploy/
+deploy*/
 
 user.build.properties
 

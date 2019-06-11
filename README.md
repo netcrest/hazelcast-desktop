@@ -24,13 +24,23 @@ mvn install:install-file -Dfile=<path-to-hazelcast-addon-file> -DgroupId=org.haz
     -DartifactId=hazelcast-addon -Dversion=<version> -Dpackaging=jar
 ```
 
-Once the hazelcast-addon libary has been installed in your local repository, you can build the desktop as follows:
+Once the hazelcast-addon libary has been installed in your local repository, edit the `pom.xml` file in the root (parent) directory to include the correct version number for `<hazelcast-addon.version>`. For example, the following includes version 0.1.2 in the pom.xml file.
+
+```xml
+<!-- In pom.xml (root directory) -->
+<properties>
+   ...
+   <hazelcast-addon.version>0.1.2</hazelcast-addon.version>
+</properties>
+```
+
+To build the desktop binary, run the maven command as follows:
 
 ```
 mvn -DskipTests install
 ```
 
-Upon successful build, you can find the Hazelcast Desktop distribution in the following `assemly` directory:
+Upon successful build, you can find the Hazelcast Desktop distribution in the following `assembly` directory:
 
 ```
 ls hazelcast-desktop-deployment/target/assembly/
@@ -86,7 +96,7 @@ The login dialog may require a valid app ID, user name, and password. If you are
 
 ## Desktop Templates
 
-For Java 1.8, 11, and 12, Hazelcast Desktop initially opens with the preconfigured worksheet named *HazelcastExplorer*. If for some reason, the desktop does not display the HazelcastExplorer worksheet then you can open the appropriate teamplate by selecting the pulldown menu, `File/Open...` The templates are included in the `etc/` directory. You can also layout the screen yourself as described below.
+For Java 1.8, 11, and 12, Hazelcast Desktop initially opens with the pre-configured worksheet named *HazelcastExplorer*. If for some reason, the desktop does not display the HazelcastExplorer worksheet then you can open the appropriate template by selecting the pulldown menu, `File/Open...` The templates are included in the `etc/` directory. You can also layout the screen yourself as described below.
 
 ## Screen Layout
 

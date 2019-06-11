@@ -3,6 +3,14 @@ Hazelcast-Desktop
 
 ©2019 Netcrest Technologies, LLC. All rights reserved.
 
+Release: Version 0.1.1
+Release Date: 06/11/2019
+
+- The desktop now first connects to the cluster without credentials before supplying
+  credentials. This is to prevent the cluster with security disabled from rejecting 
+  the clients that supply credentials.
+*************************************************************************
+
 Release: Version 0.1.0
 Release Date: 05/27/2019
 

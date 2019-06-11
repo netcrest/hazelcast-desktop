@@ -4,13 +4,13 @@ REM
 REM Set JAVA to the java executable of your choice.
 REM Java 1.8 is recommended.
 REM
-@set JAVA_HOME="C:\Program Files\Java\jdk1.8.0_102"
+@set JAVA_HOME="C:\Program Files\Java\jdk1.8.0_144"
 
 REM
 REM Set CODEBASE_URL  to this desktop installation directory. 
 REM You must follow the conventions shown below. The trailing '/' is required.
 REM
-@set CODEBASE_URL=file:///C:/Work/hazelcast-desktop_0.1.0-SNAPSHOT/
+@set CODEBASE_URL=file:///C:/Users/dpark/Work/git/Hazelcast/hazelcast-desktop/deploy/hazelcast-desktop_0.1.0-SNAPSHOT/
 
 
 REM ------------------------------------------------------
