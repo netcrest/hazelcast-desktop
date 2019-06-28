@@ -3,6 +3,15 @@ Hazelcast-Desktop
 
 ©2019 Netcrest Technologies, LLC. All rights reserved.
 
+Release: Version 0.1.2
+Release Date: 06/28/2019
+
+- Added hazelcast-addon build support. With this enhancement, hazelcast-desktop
+  is now a part of the hazelcast-addon build process which includes 
+  hazelcast-desktop as an app to its distribution file.
+- Addes support for Cygwin.
+*************************************************************************
+
 Release: Version 0.1.1
 Release Date: 06/11/2019
 
