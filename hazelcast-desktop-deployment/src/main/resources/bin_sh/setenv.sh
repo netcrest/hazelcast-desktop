@@ -10,24 +10,26 @@ fi
 
 BASE_DIR="$(dirname "$SCRIPT_DIR")"
 
+# OS_NAME in uppercase
 OS_NAME=`uname`
+OS_NAME=`echo "$OS_NAME"|awk '{print toupper($0)}'`
 
 #
 # Set JAVA_HOME to the Java home (root) directory. If undefined then
 # the default java executable in PATH is used.
 #
-#if [[ ${OS_NAME^^} == DARWIN* ]]; then
+#if [[ ${OS_NAME} == DARWIN* ]]; then
 #   # Mac
 #   export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 #   #export JAVA_HOME=`/usr/libexec/java_home -v 11`
 #   #export JAVA_HOME=`/usr/libexec/java_home -v 12`
-#elif [[ ${OS_NAME^^} == CYGWIN* ]]; then
+#elif [[ ${OS_NAME} == CYGWIN* ]]; then
 #   export JAVA_HOME="/cygdrive/c/Program Files/Java/jdk1.8.0_212"
 #else
 #   export JAVA_HOME="/Users/dpark/Work/products/jdk1.8.0_212"
 #fi
 
-if [[ ${OS_NAME^^} == CYGWIN* ]]; then
+if [[ ${OS_NAME} == CYGWIN* ]]; then
    __BASE_DIR="$(cygpath -wp "$BASE_DIR")"
    BACK="\\\\"
    FORWARD="\/"
@@ -56,7 +58,7 @@ fi
 
 HAZELCAST_CLIENT_CONFIG_FILE=$DESKTOP_HOME/etc/hazelcast-client.xml 
 
-if [[ ${OS_NAME^^} == CYGWIN* ]]; then
+if [[ ${OS_NAME} == CYGWIN* ]]; then
    HAZELCAST_CLIENT_CONFIG_FILE="$(cygpath -wp "$HAZELCAST_CLIENT_CONFIG_FILE")"
 fi
 
@@ -78,6 +80,6 @@ DEMO_JARS=$NAF_HOME/lib/demo/*
 
 export CLASSPATH=$DESKTOP_HOME:$DESKTOP_HOME/classes:$PLUGIN_JARS:$LIB_JARS:$PADO_JARS:$NAF_JARS:$DEMO_JARS:$CLASSPATH
 
-if [[ ${OS_NAME^^} == CYGWIN* ]]; then
+if [[ ${OS_NAME} == CYGWIN* ]]; then
    export CLASSPATH="$(cygpath -wp "$CLASSPATH")"
 fi
