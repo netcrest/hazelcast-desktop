@@ -33,12 +33,12 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 
 	/** Node Map. */
 	/**
-	 * key = TreeNode, value = Region.
+	 * key = TreeNode, value = MapItem.
 	 */
 	private HashMap<TreeNode, HazelcastSharedCache.MapItem> itemMap = new HashMap<TreeNode, HazelcastSharedCache.MapItem>();
 
 	/**
-	 * key = Region, value = TreeNode.
+	 * key = MapItem, value = TreeNode.
 	 */
 	private HashMap<HazelcastSharedCache.MapItem, TreeNode> treeNodeMap = new HashMap<HazelcastSharedCache.MapItem, TreeNode>();
 
@@ -69,11 +69,11 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 
 	}
 
-	public void setShowHiddenRegions(boolean showHiddenRegions) {
-		this.showHiddenItems = showHiddenRegions;
+	public void setShowHiddenMapItems(boolean showHiddenMapItems) {
+		this.showHiddenItems = showHiddenMapItems;
 	}
 
-	public boolean isShowHiddenRegions() {
+	public boolean isShowHiddenMapItems() {
 		return showHiddenItems;
 	}
 
@@ -98,8 +98,8 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 		return itemMap.get(treeNode);
 	}
 
-	public MutableTreeNode getTreeNode(HazelcastSharedCache.MapItem region) {
-		return (MutableTreeNode) treeNodeMap.get(region);
+	public MutableTreeNode getTreeNode(HazelcastSharedCache.MapItem mapItem) {
+		return (MutableTreeNode) treeNodeMap.get(mapItem);
 	}
 
 	/**
@@ -109,8 +109,8 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	public MutableTreeNode findTreeNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parent) {
 		HazelcastSharedCache.MapItem parentItem = getItem(parent);
 		if (parentItem != null) {
-			TreeSet<HazelcastSharedCache.MapItem> parentRegionSet = parentItem.getChildSet(false);
-			for (HazelcastSharedCache.MapItem item : parentRegionSet) {
+			TreeSet<HazelcastSharedCache.MapItem> parentMapItemSet = parentItem.getChildSet(false);
+			for (HazelcastSharedCache.MapItem item : parentMapItemSet) {
 				if (childItem.getName().equals(item.getName())) {
 					return getTreeNode(item);
 				}
@@ -140,17 +140,17 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 
 	} // buildTree()
 
-	private MutableTreeNode insertNodeOnly(HazelcastSharedCache.MapItem childRegion, MutableTreeNode parentTreeNode) {
+	private MutableTreeNode insertNodeOnly(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode) {
 		// If there is a node in parent which has the same node name
 		// as childNode then return that node's tree node.
-		MutableTreeNode treeNode = findTreeNode(childRegion, parentTreeNode);
+		MutableTreeNode treeNode = findTreeNode(childItem, parentTreeNode);
 		if (treeNode != null) {
 			return treeNode;
 		}
 
 		// Did not find a matching node. Let's insert childNode.
-		treeNode = addTreeNode(childRegion, parentTreeNode, true);
-		treeNodeMap.put(childRegion, treeNode);
+		treeNode = addTreeNode(childItem, parentTreeNode, true);
+		treeNodeMap.put(childItem, treeNode);
 		return treeNode;
 	}
 
@@ -158,14 +158,14 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	 * @param treeOnly If true, adds childNode to the tree only; otherwise, adds
 	 *                 childNode to the tree and the parent XML node.
 	 */
-	private MutableTreeNode addChildNode(HazelcastSharedCache.MapItem childRegion, MutableTreeNode parentTreeNode,
+	private MutableTreeNode addChildNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode,
 			boolean treeOnly) {
 		MutableTreeNode root = (MutableTreeNode) getRoot();
 		MutableTreeNode newTreeNode = null;
-		if (childRegion == null) {
-			newTreeNode = insertRootNode(childRegion, root);
+		if (childItem == null) {
+			newTreeNode = insertRootNode(childItem, root);
 		} else {
-			newTreeNode = addItemNode(childRegion, parentTreeNode);
+			newTreeNode = addItemNode(childItem, parentTreeNode);
 		}
 		return newTreeNode;
 	}
@@ -175,22 +175,22 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	 * 
 	 * @return Returns the newly created tree node that represents childNode.
 	 */
-	public MutableTreeNode addChildNode(HazelcastSharedCache.MapItem childRegion, MutableTreeNode parentTreeNode) {
-		return addChildNode(childRegion, parentTreeNode, false);
+	public MutableTreeNode addChildNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode) {
+		return addChildNode(childItem, parentTreeNode, false);
 	}
 
 	/**
 	 * Recursively adds node and treeNode to the maps. It assumes node and treeNode
 	 * are fully associated such that their children can be mapped one to one.
 	 */
-	private void addNodeToMaps(HazelcastSharedCache.MapItem item, MutableTreeNode treeNode) {
-		itemMap.put(treeNode, item);
-		treeNodeMap.put(item, treeNode);
-		Set<HazelcastSharedCache.MapItem> regionSet = item.getChildSet(false);
+	private void addNodeToMaps(HazelcastSharedCache.MapItem mapItem, MutableTreeNode treeNode) {
+		itemMap.put(treeNode, mapItem);
+		treeNodeMap.put(mapItem, treeNode);
+		Set<HazelcastSharedCache.MapItem> mapItemSet = mapItem.getChildSet(false);
 		int i = 0;
-		for (HazelcastSharedCache.MapItem region2 : regionSet) {
+		for (HazelcastSharedCache.MapItem item2 : mapItemSet) {
 			MutableTreeNode childTreeNode = (MutableTreeNode) treeNode.getChildAt(i++);
-			addNodeToMaps(region2, childTreeNode);
+			addNodeToMaps(item2, childTreeNode);
 		}
 	}
 
@@ -199,20 +199,20 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	 * 
 	 * @param node The node to remove.
 	 */
-	private void removeNode(HazelcastSharedCache.MapItem region, ArrayList nodeArray) {
-		if (region == null) {
+	private void removeNode(HazelcastSharedCache.MapItem mapItem, ArrayList nodeArray) {
+		if (mapItem == null) {
 			return;
 		}
-		MutableTreeNode treeNode = (MutableTreeNode) treeNodeMap.get(region);
+		MutableTreeNode treeNode = (MutableTreeNode) treeNodeMap.get(mapItem);
 		if (treeNode == null) {
 			return;
 		}
 		this.removeNodeFromParent(treeNode);
-		removeNodeFromMaps(region, nodeArray);
+		removeNodeFromMaps(mapItem, nodeArray);
 	}
 
-	public void removeNode(HazelcastSharedCache.MapItem region) {
-		removeNode(region, null);
+	public void removeNode(HazelcastSharedCache.MapItem mapItem) {
+		removeNode(mapItem, null);
 	}
 
 	public ArrayList removeNodeAndGetPairs(HazelcastSharedCache.MapItem item) {
@@ -246,32 +246,32 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 		if (childItem == null || parentItem == null) {
 			return false;
 		}
-		Set<HazelcastSharedCache.MapItem> regionSet = parentItem.getChildSet(false);
+		Set<HazelcastSharedCache.MapItem> childSet = parentItem.getChildSet(false);
 
-		for (HazelcastSharedCache.MapItem region : regionSet) {
-			if (region == childItem) {
+		for (HazelcastSharedCache.MapItem mapItem : childSet) {
+			if (mapItem == childItem) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	private String getItemNameForTree(HazelcastSharedCache.MapItem region) {
-		if (region == null) {
+	private String getItemNameForTree(HazelcastSharedCache.MapItem mapItem) {
+		if (mapItem == null) {
 			return "/"; // root node
 		}
 
-		return region.getName();
+		return mapItem.getName();
 	}
 
-	private MutableTreeNode insertBeforeTreeNode(HazelcastSharedCache.MapItem childRegion,
-			HazelcastSharedCache.MapItem refChildRegion, MutableTreeNode parentChildTreeNode, boolean treeOnly) {
-		String childTreeNodeName = getItemNameForTree(childRegion);
+	private MutableTreeNode insertBeforeTreeNode(HazelcastSharedCache.MapItem childItem,
+			HazelcastSharedCache.MapItem refChildItem, MutableTreeNode parentChildTreeNode, boolean treeOnly) {
+		String childTreeNodeName = getItemNameForTree(childItem);
 		MutableTreeNode childTreeNode = new DefaultMutableTreeNode(childTreeNodeName);
-		MutableTreeNode refChildTreeNode = (MutableTreeNode) treeNodeMap.get(refChildRegion);
+		MutableTreeNode refChildTreeNode = (MutableTreeNode) treeNodeMap.get(refChildItem);
 		insertNodeInto(childTreeNode, parentChildTreeNode, parentChildTreeNode.getIndex(refChildTreeNode));
-		itemMap.put(childTreeNode, childRegion);
-		treeNodeMap.put(childRegion, childTreeNode);
+		itemMap.put(childTreeNode, childItem);
+		treeNodeMap.put(childItem, childTreeNode);
 		return childTreeNode;
 	}
 
@@ -293,19 +293,19 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	/**
 	 * Adds a new tree node as the last child in the specified parentTreeNode.
 	 */
-	private MutableTreeNode addTreeNode(HazelcastSharedCache.MapItem childRegion, MutableTreeNode parentTreeNode,
+	private MutableTreeNode addTreeNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode,
 			boolean treeOnly) {
-		String childTreeNodeName = getItemNameForTree(childRegion);
+		String childTreeNodeName = getItemNameForTree(childItem);
 		MutableTreeNode childTreeNode = new DefaultMutableTreeNode(childTreeNodeName);
 		insertNodeInto(childTreeNode, parentTreeNode, parentTreeNode.getChildCount());
-		itemMap.put(childTreeNode, childRegion);
-		treeNodeMap.put(childRegion, childTreeNode);
+		itemMap.put(childTreeNode, childItem);
+		treeNodeMap.put(childItem, childTreeNode);
 		return childTreeNode;
 	}
 
 	/** Inserts the document node. */
-	private MutableTreeNode insertRootNode(HazelcastSharedCache.MapItem childRegion, MutableTreeNode parentTreeNode) {
-		MutableTreeNode treeNode = addTreeNode(childRegion, parentTreeNode, true);
+	private MutableTreeNode insertRootNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode) {
+		MutableTreeNode treeNode = addTreeNode(childItem, parentTreeNode, true);
 		return treeNode;
 	}
 
@@ -313,8 +313,8 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	 * Adds the element node as the child of the parent tree node.
 	 */
 	private MutableTreeNode addItemNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode) {
-		// Do not show hidden regions if showHiddenRegions == false
-		if (isShowHiddenRegions() == false && childItem.getName().startsWith("__")) {
+		// Do not show hidden MapItems if showHiddenMapItems == false
+		if (isShowHiddenMapItems() == false && childItem.getName().startsWith("__")) {
 			return null;
 		}
 
@@ -332,11 +332,11 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	}
 
 	public static class NodePair {
-		HazelcastSharedCache.MapItem region;
+		HazelcastSharedCache.MapItem mapItem;
 		TreeNode treeNode;
 
-		public NodePair(HazelcastSharedCache.MapItem region, TreeNode treeNode) {
-			this.region = region;
+		public NodePair(HazelcastSharedCache.MapItem mapItem, TreeNode treeNode) {
+			this.mapItem = mapItem;
 			this.treeNode = treeNode;
 		}
 	}
