@@ -1,8 +1,11 @@
 package com.netcrest.pado.ui.swing.pado.hazelcast;
 
-import java.io.*;
-import java.util.Vector;
-import com.netcrest.persist.*;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
+
+import com.netcrest.persist.PersistenceMap;
 
 /**
  * NodeID is used strictly for dnd-transferring a message ID and node ID

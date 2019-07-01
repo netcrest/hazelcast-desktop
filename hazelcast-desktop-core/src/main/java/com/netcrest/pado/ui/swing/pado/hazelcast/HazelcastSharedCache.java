@@ -11,11 +11,8 @@ import javax.security.auth.login.LoginException;
 
 import org.hazelcast.addon.hql.HqlQuery;
 
-import com.hazelcast.client.AuthenticationException;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
-import com.hazelcast.core.Client;
-import com.hazelcast.core.ClientListener;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 import com.hazelcast.core.Member;
@@ -95,7 +92,7 @@ public class HazelcastSharedCache implements ISharedCache {
 					} catch (Exception ex) {
 						throw new PadoException(
 								"Invalid serialization factory class defined: " + str + ". Please correct the property "
-										+ factoryPropertyName + " in the file etc/pado.properties");
+										+ factoryPropertyName + " in the file etc/pado.properties", ex);
 					}
 				}
 			}

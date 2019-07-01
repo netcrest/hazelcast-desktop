@@ -15,13 +15,11 @@ import java.util.TreeSet;
 
 import com.netcrest.pado.data.KeyMap;
 import com.netcrest.pado.data.KeyType;
-import com.netcrest.pado.index.service.IScrollableResultSet;
 import com.netcrest.pado.internal.util.StringUtil;
 import com.netcrest.pado.temporal.ITemporalData;
 import com.netcrest.pado.temporal.ITemporalKey;
 import com.netcrest.pado.temporal.TemporalEntry;
 import com.netcrest.pado.ui.swing.table.ObjectTableModel;
-import com.netcrest.ui.swing.util.RowHeaderTable;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class GridTableModel extends ObjectTableModel

@@ -52,10 +52,7 @@ public class MapTreePanel extends JPanel implements Externalizable
 
 	private TreeNode currentTreeNode;
 
-	private JCheckBox chckbxReplicated;
-	private JCheckBox chckbxNoHidden;
-	private JCheckBox chckbxAll;
-	private JCheckBox chckbxPartitioned;
+	private JCheckBox chckbxShowHidden;
 	private MapTreeInnerPanel physicalPathTreeInfoInnerPanel;
 	private MapTree physicalPathInfoTree;
 	private JPanel centerPanel;
@@ -100,72 +97,24 @@ public class MapTreePanel extends JPanel implements Externalizable
 		checkBoxPanel
 				.setBorder(new TitledBorder(null, "Path Type", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GridBagLayout gbl_checkBoxPanel = new GridBagLayout();
-		gbl_checkBoxPanel.columnWidths = new int[] { 0, 69, 0 };
-		gbl_checkBoxPanel.rowHeights = new int[] { 23, 0, 0 };
-		gbl_checkBoxPanel.columnWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
-		gbl_checkBoxPanel.rowWeights = new double[] { 0.0, 0.0, Double.MIN_VALUE };
+		gbl_checkBoxPanel.columnWidths = new int[] { 69, 0 };
+		gbl_checkBoxPanel.rowHeights = new int[] { 23, 0 };
+		gbl_checkBoxPanel.columnWeights = new double[] { 0.0, Double.MIN_VALUE };
+		gbl_checkBoxPanel.rowWeights = new double[] { 0.0, Double.MIN_VALUE };
 		checkBoxPanel.setLayout(gbl_checkBoxPanel);
 
-		chckbxAll = new JCheckBox("All");
-		chckbxAll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{
-				if (chckbxAll.isSelected()) {
-					chckbxReplicated.setSelected(false);
-					chckbxNoHidden.setSelected(true);
-					chckbxPartitioned.setSelected(false);
-					refresh();
-				}
-			}
-		});
-		GridBagConstraints gbc_chckbxAll = new GridBagConstraints();
-		gbc_chckbxAll.anchor = GridBagConstraints.WEST;
-		gbc_chckbxAll.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxAll.gridx = 0;
-		gbc_chckbxAll.gridy = 0;
-		checkBoxPanel.add(chckbxAll, gbc_chckbxAll);
-
-		chckbxReplicated = new JCheckBox("Replicated");
-		chckbxReplicated.addActionListener(new ActionListener() {
+		chckbxShowHidden = new JCheckBox("Show Hidden");
+		chckbxShowHidden.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
 				refresh();
 			}
 		});
-
-		chckbxNoHidden = new JCheckBox("No Hidden");
-		chckbxNoHidden.setSelected(true);
-		chckbxNoHidden.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{
-				refresh();
-			}
-		});
-		GridBagConstraints gbc_chckbxNoHidden = new GridBagConstraints();
-		gbc_chckbxNoHidden.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxNoHidden.anchor = GridBagConstraints.NORTHWEST;
-		gbc_chckbxNoHidden.gridx = 1;
-		gbc_chckbxNoHidden.gridy = 0;
-		checkBoxPanel.add(chckbxNoHidden, gbc_chckbxNoHidden);
-		GridBagConstraints gbc_chckbxReplicated = new GridBagConstraints();
-		gbc_chckbxReplicated.anchor = GridBagConstraints.NORTHWEST;
-		gbc_chckbxReplicated.insets = new Insets(0, 0, 0, 5);
-		gbc_chckbxReplicated.gridx = 0;
-		gbc_chckbxReplicated.gridy = 1;
-		checkBoxPanel.add(chckbxReplicated, gbc_chckbxReplicated);
-
-		chckbxPartitioned = new JCheckBox("Partitioned");
-		chckbxPartitioned.setSelected(true);
-		chckbxPartitioned.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e)
-			{
-				refresh();
-			}
-		});
-		GridBagConstraints gbc_chckbxPartitioned = new GridBagConstraints();
-		gbc_chckbxPartitioned.gridx = 1;
-		gbc_chckbxPartitioned.gridy = 1;
-		checkBoxPanel.add(chckbxPartitioned, gbc_chckbxPartitioned);
+		GridBagConstraints gbc_chckbxShowHidden = new GridBagConstraints();
+		gbc_chckbxShowHidden.anchor = GridBagConstraints.NORTHWEST;
+		gbc_chckbxShowHidden.gridx = 0;
+		gbc_chckbxShowHidden.gridy = 0;
+		checkBoxPanel.add(chckbxShowHidden, gbc_chckbxShowHidden);
 
 		centerPanel = new JPanel();
 		add(centerPanel, BorderLayout.CENTER);
@@ -251,8 +200,7 @@ public class MapTreePanel extends JPanel implements Externalizable
 
 	private void refresh()
 	{
-		boolean showAllPaths = chckbxAll.isSelected();
-		boolean showNoHiddenPaths = chckbxNoHidden.isSelected();
+		boolean showNoHiddenPaths = chckbxShowHidden.isSelected();
 		HazelcastSharedCache.getSharedCache().refresh();
 		TreeSet<HazelcastSharedCache.MapItem> itemSet = HazelcastSharedCache.getSharedCache().getMapSet();
 		itemSet = new TreeSet<HazelcastSharedCache.MapItem>(itemSet);
@@ -269,10 +217,12 @@ public class MapTreePanel extends JPanel implements Externalizable
 		return physicalPathInfoTree.getSelectedItem();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void writeExternal(ObjectOutput out) throws IOException
 	{
 		HashMap map = new HashMap(2);
+		map.put("showHidden", chckbxShowHidden.isSelected());
 		out.writeObject(map);
 	}
 
@@ -280,6 +230,9 @@ public class MapTreePanel extends JPanel implements Externalizable
 	public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException
 	{
 		HashMap map = (HashMap) in.readObject();
+		Boolean showHidden = (Boolean)map.get("showHidden");
+		showHidden = showHidden != null && showHidden;
+		chckbxShowHidden.setSelected(showHidden);
 	}
 
 	public class PadoInfoTreePanelCommandProvider implements ICommandProvider

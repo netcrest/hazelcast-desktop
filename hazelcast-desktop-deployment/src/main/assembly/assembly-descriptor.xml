@@ -28,6 +28,7 @@
 				<exclude>xml-apis*</exclude>
 				<exclude>xom*</exclude>
 				<exclude>org.apache.lucene:lucene*</exclude>
+				<exclude>com.gemstone.gemfire:*</exclude>
 			</excludes>
 			<outputDirectory>lib/</outputDirectory>
 		</dependencySet>
