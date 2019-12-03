@@ -24,10 +24,13 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
 import javax.swing.tree.TreeNode;
 
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.HazelcastSharedCache;
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.IMapItem;
+
 public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private TreeSet<HazelcastSharedCache.MapItem> itemSet;
+	private TreeSet<IMapItem> itemSet;
 	boolean showTemporalOnly = false;
 	private boolean showHiddenItems = false;
 
@@ -35,12 +38,12 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	/**
 	 * key = TreeNode, value = MapItem.
 	 */
-	private HashMap<TreeNode, HazelcastSharedCache.MapItem> itemMap = new HashMap<TreeNode, HazelcastSharedCache.MapItem>();
+	private HashMap<TreeNode, IMapItem> itemMap = new HashMap<TreeNode, IMapItem>();
 
 	/**
 	 * key = MapItem, value = TreeNode.
 	 */
-	private HashMap<HazelcastSharedCache.MapItem, TreeNode> treeNodeMap = new HashMap<HazelcastSharedCache.MapItem, TreeNode>();
+	private HashMap<IMapItem, TreeNode> treeNodeMap = new HashMap<IMapItem, TreeNode>();
 
 	/** Constructs a model from the cache root. */
 	public HazelcastMapTreeModel() {
@@ -56,7 +59,7 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 		reset(HazelcastSharedCache.getSharedCache().getMapSet(), showHiddenItems);
 	}
 
-	public void reset(TreeSet<HazelcastSharedCache.MapItem> itemSet, boolean showHiddenItems) {
+	public void reset(TreeSet<IMapItem> itemSet, boolean showHiddenItems) {
 		this.showHiddenItems = showHiddenItems;
 		this.itemSet = itemSet;
 		clear();
@@ -94,11 +97,11 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	}
 
 	/** get the org.w3c.Node for a MutableTreeNode. */
-	public HazelcastSharedCache.MapItem getItem(Object treeNode) {
+	public IMapItem getItem(Object treeNode) {
 		return itemMap.get(treeNode);
 	}
 
-	public MutableTreeNode getTreeNode(HazelcastSharedCache.MapItem mapItem) {
+	public MutableTreeNode getTreeNode(IMapItem mapItem) {
 		return (MutableTreeNode) treeNodeMap.get(mapItem);
 	}
 
@@ -106,11 +109,11 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	 * Return the first tree node in parent that matches the childNode's node name.
 	 * It returns null if not found.
 	 */
-	public MutableTreeNode findTreeNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parent) {
-		HazelcastSharedCache.MapItem parentItem = getItem(parent);
+	public MutableTreeNode findTreeNode(IMapItem childItem, MutableTreeNode parent) {
+		IMapItem parentItem = getItem(parent);
 		if (parentItem != null) {
-			TreeSet<HazelcastSharedCache.MapItem> parentMapItemSet = parentItem.getChildSet(false);
-			for (HazelcastSharedCache.MapItem item : parentMapItemSet) {
+			TreeSet<IMapItem> parentMapItemSet = parentItem.getChildSet(false);
+			for (IMapItem item : parentMapItemSet) {
 				if (childItem.getName().equals(item.getName())) {
 					return getTreeNode(item);
 				}
@@ -128,19 +131,19 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 		// iterate over children of this node
 
 		MutableTreeNode root = (MutableTreeNode) getRoot();
-		HazelcastSharedCache.MapItem rootItem = itemSet.first();
-		TreeSet<HazelcastSharedCache.MapItem> rootItemSet = rootItem.getChildSet(false);
+		IMapItem rootItem = itemSet.first();
+		TreeSet<IMapItem> rootItemSet = rootItem.getChildSet(false);
 		if (rootItemSet == null) {
 			return;
 		}
 		MutableTreeNode rootTreeNode = insertRootNode(rootItem, root);
-		for (HazelcastSharedCache.MapItem item : rootItemSet) {
+		for (IMapItem item : rootItemSet) {
 			addItemNode(item, rootTreeNode);
 		}
 
 	} // buildTree()
 
-	private MutableTreeNode insertNodeOnly(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode) {
+	private MutableTreeNode insertNodeOnly(IMapItem childItem, MutableTreeNode parentTreeNode) {
 		// If there is a node in parent which has the same node name
 		// as childNode then return that node's tree node.
 		MutableTreeNode treeNode = findTreeNode(childItem, parentTreeNode);
@@ -158,7 +161,7 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	 * @param treeOnly If true, adds childNode to the tree only; otherwise, adds
 	 *                 childNode to the tree and the parent XML node.
 	 */
-	private MutableTreeNode addChildNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode,
+	private MutableTreeNode addChildNode(IMapItem childItem, MutableTreeNode parentTreeNode,
 			boolean treeOnly) {
 		MutableTreeNode root = (MutableTreeNode) getRoot();
 		MutableTreeNode newTreeNode = null;
@@ -175,7 +178,7 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	 * 
 	 * @return Returns the newly created tree node that represents childNode.
 	 */
-	public MutableTreeNode addChildNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode) {
+	public MutableTreeNode addChildNode(IMapItem childItem, MutableTreeNode parentTreeNode) {
 		return addChildNode(childItem, parentTreeNode, false);
 	}
 
@@ -183,12 +186,12 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	 * Recursively adds node and treeNode to the maps. It assumes node and treeNode
 	 * are fully associated such that their children can be mapped one to one.
 	 */
-	private void addNodeToMaps(HazelcastSharedCache.MapItem mapItem, MutableTreeNode treeNode) {
+	private void addNodeToMaps(IMapItem mapItem, MutableTreeNode treeNode) {
 		itemMap.put(treeNode, mapItem);
 		treeNodeMap.put(mapItem, treeNode);
-		Set<HazelcastSharedCache.MapItem> mapItemSet = mapItem.getChildSet(false);
+		Set<IMapItem> mapItemSet = mapItem.getChildSet(false);
 		int i = 0;
-		for (HazelcastSharedCache.MapItem item2 : mapItemSet) {
+		for (IMapItem item2 : mapItemSet) {
 			MutableTreeNode childTreeNode = (MutableTreeNode) treeNode.getChildAt(i++);
 			addNodeToMaps(item2, childTreeNode);
 		}
@@ -199,7 +202,7 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	 * 
 	 * @param node The node to remove.
 	 */
-	private void removeNode(HazelcastSharedCache.MapItem mapItem, ArrayList nodeArray) {
+	private void removeNode(IMapItem mapItem, ArrayList nodeArray) {
 		if (mapItem == null) {
 			return;
 		}
@@ -211,17 +214,17 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 		removeNodeFromMaps(mapItem, nodeArray);
 	}
 
-	public void removeNode(HazelcastSharedCache.MapItem mapItem) {
+	public void removeNode(IMapItem mapItem) {
 		removeNode(mapItem, null);
 	}
 
-	public ArrayList removeNodeAndGetPairs(HazelcastSharedCache.MapItem item) {
+	public ArrayList removeNodeAndGetPairs(IMapItem item) {
 		ArrayList nodeArray = new ArrayList(14);
 		removeNode(item, nodeArray);
 		return nodeArray;
 	}
 
-	public HazelcastSharedCache.MapItem getItem(TreeNode treeNode) {
+	public IMapItem getItem(TreeNode treeNode) {
 		return itemMap.get(treeNode);
 	}
 
@@ -229,26 +232,26 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	 * Removes the specified node from the nodeMap and treeNodeMap. It recusively
 	 * removes all of the children.
 	 */
-	private void removeNodeFromMaps(HazelcastSharedCache.MapItem item, ArrayList nodeArray) {
+	private void removeNodeFromMaps(IMapItem item, ArrayList nodeArray) {
 		TreeNode treeNode = (TreeNode) treeNodeMap.get(item);
 		treeNodeMap.remove(item);
 		itemMap.remove(treeNode);
 		if (nodeArray != null) {
 			nodeArray.add(new NodePair(item, treeNode));
 		}
-		Set<HazelcastSharedCache.MapItem> itemSet = item.getChildSet(false);
-		for (HazelcastSharedCache.MapItem item2 : itemSet) {
+		Set<IMapItem> itemSet = item.getChildSet(false);
+		for (IMapItem item2 : itemSet) {
 			removeNodeFromMaps(item2, nodeArray);
 		}
 	}
 
-	private boolean hasChildNode(HazelcastSharedCache.MapItem childItem, HazelcastSharedCache.MapItem parentItem) {
+	private boolean hasChildNode(IMapItem childItem, IMapItem parentItem) {
 		if (childItem == null || parentItem == null) {
 			return false;
 		}
-		Set<HazelcastSharedCache.MapItem> childSet = parentItem.getChildSet(false);
+		Set<IMapItem> childSet = parentItem.getChildSet(false);
 
-		for (HazelcastSharedCache.MapItem mapItem : childSet) {
+		for (IMapItem mapItem : childSet) {
 			if (mapItem == childItem) {
 				return true;
 			}
@@ -256,7 +259,7 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 		return false;
 	}
 
-	private String getItemNameForTree(HazelcastSharedCache.MapItem mapItem) {
+	private String getItemNameForTree(IMapItem mapItem) {
 		if (mapItem == null) {
 			return "/"; // root node
 		}
@@ -264,8 +267,8 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 		return mapItem.getName();
 	}
 
-	private MutableTreeNode insertBeforeTreeNode(HazelcastSharedCache.MapItem childItem,
-			HazelcastSharedCache.MapItem refChildItem, MutableTreeNode parentChildTreeNode, boolean treeOnly) {
+	private MutableTreeNode insertBeforeTreeNode(IMapItem childItem,
+			IMapItem refChildItem, MutableTreeNode parentChildTreeNode, boolean treeOnly) {
 		String childTreeNodeName = getItemNameForTree(childItem);
 		MutableTreeNode childTreeNode = new DefaultMutableTreeNode(childTreeNodeName);
 		MutableTreeNode refChildTreeNode = (MutableTreeNode) treeNodeMap.get(refChildItem);
@@ -279,7 +282,7 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	 * Inserts node before refTreeNode. If node is Attr then it is appended as
 	 * refTreeNode's attribute.
 	 */
-	private MutableTreeNode insertBeforeTreeNode(HazelcastSharedCache.MapItem childItem,
+	private MutableTreeNode insertBeforeTreeNode(IMapItem childItem,
 			MutableTreeNode refChildTreeNode, boolean treeOnly) {
 		String childTreeNodeName = getItemNameForTree(childItem);
 		MutableTreeNode childTreeNode = new DefaultMutableTreeNode(childTreeNodeName);
@@ -293,7 +296,7 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	/**
 	 * Adds a new tree node as the last child in the specified parentTreeNode.
 	 */
-	private MutableTreeNode addTreeNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode,
+	private MutableTreeNode addTreeNode(IMapItem childItem, MutableTreeNode parentTreeNode,
 			boolean treeOnly) {
 		String childTreeNodeName = getItemNameForTree(childItem);
 		MutableTreeNode childTreeNode = new DefaultMutableTreeNode(childTreeNodeName);
@@ -304,7 +307,7 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	}
 
 	/** Inserts the document node. */
-	private MutableTreeNode insertRootNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode) {
+	private MutableTreeNode insertRootNode(IMapItem childItem, MutableTreeNode parentTreeNode) {
 		MutableTreeNode treeNode = addTreeNode(childItem, parentTreeNode, true);
 		return treeNode;
 	}
@@ -312,7 +315,7 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	/**
 	 * Adds the element node as the child of the parent tree node.
 	 */
-	private MutableTreeNode addItemNode(HazelcastSharedCache.MapItem childItem, MutableTreeNode parentTreeNode) {
+	private MutableTreeNode addItemNode(IMapItem childItem, MutableTreeNode parentTreeNode) {
 		// Do not show hidden MapItems if showHiddenMapItems == false
 		if (isShowHiddenMapItems() == false && childItem.getName().startsWith("__")) {
 			return null;
@@ -321,9 +324,9 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 		MutableTreeNode treeNode = addTreeNode(childItem, parentTreeNode, true);
 
 		// gather up attributes and children nodes
-		Set<HazelcastSharedCache.MapItem> childItemSet = childItem.getChildSet(false);
+		Set<IMapItem> childItemSet = childItem.getChildSet(false);
 		if (childItemSet != null) {
-			for (HazelcastSharedCache.MapItem item : childItemSet) {
+			for (IMapItem item : childItemSet) {
 				addItemNode(item, treeNode);
 			}
 		}
@@ -332,10 +335,10 @@ public class HazelcastMapTreeModel extends DefaultTreeModel implements Serializa
 	}
 
 	public static class NodePair {
-		HazelcastSharedCache.MapItem mapItem;
+		IMapItem mapItem;
 		TreeNode treeNode;
 
-		public NodePair(HazelcastSharedCache.MapItem mapItem, TreeNode treeNode) {
+		public NodePair(IMapItem mapItem, TreeNode treeNode) {
 			this.mapItem = mapItem;
 			this.treeNode = treeNode;
 		}

@@ -1,4 +1,4 @@
-package com.netcrest.pado.ui.swing.pado.hazelcast;
+package com.netcrest.pado.ui.swing.pado.hazelcast.v4;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,21 +13,23 @@ import org.hazelcast.addon.hql.HqlQuery;
 
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.client.config.ClientConfig;
+import com.hazelcast.cluster.Member;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IMap;
-import com.hazelcast.core.Member;
+import com.hazelcast.map.IMap;
 import com.hazelcast.nio.serialization.DataSerializableFactory;
 import com.hazelcast.nio.serialization.PortableFactory;
 import com.hazelcast.security.Credentials;
 import com.hazelcast.security.UsernamePasswordCredentials;
 import com.netcrest.pado.exception.PadoException;
 import com.netcrest.pado.internal.util.PadoUtil;
-import com.netcrest.pado.ui.swing.ISharedCache;
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.IHazelcastSharedCache;
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.IMapItem;
 
-public class HazelcastSharedCache implements ISharedCache {
-	private final static HazelcastSharedCache sharedCache = new HazelcastSharedCache();
+@SuppressWarnings("rawtypes")
+public class HazelcastSharedCacheV4 implements IHazelcastSharedCache {
 
 	private HazelcastInstance hz;
+
 	private HqlQuery hql;
 	private String envName;
 	private String locators;
@@ -38,13 +40,9 @@ public class HazelcastSharedCache implements ISharedCache {
 
 	private List<IMap> mapList;
 	private TreeMap<String, IMap> mapMap;
-	private TreeSet<MapItem> mapSet;
+	private TreeSet<IMapItem> mapSet;
 
-	private HazelcastSharedCache() {
-	}
-
-	public static HazelcastSharedCache getSharedCache() {
-		return sharedCache;
+	public HazelcastSharedCacheV4() {
 	}
 
 	@Override
@@ -92,7 +90,8 @@ public class HazelcastSharedCache implements ISharedCache {
 					} catch (Exception ex) {
 						throw new PadoException(
 								"Invalid serialization factory class defined: " + str + ". Please correct the property "
-										+ factoryPropertyName + " in the file etc/pado.properties", ex);
+										+ factoryPropertyName + " in the file etc/pado.properties",
+								ex);
 					}
 				}
 			}
@@ -115,7 +114,8 @@ public class HazelcastSharedCache implements ISharedCache {
 			ClientConfig clientConfig = new ClientConfig();
 			clientConfig.getNetworkConfig().addAddress(locators);
 			registerSerializationClasses("hazelcast.client.config.serialization.portable.factories", clientConfig);
-			registerSerializationClasses("hazelcast.client.config.serialization.dataSerializable.factories", clientConfig);
+			registerSerializationClasses("hazelcast.client.config.serialization.dataSerializable.factories",
+					clientConfig);
 
 			// Hack - see if we can connect without authentication. We do this because if
 			// the server has not been configured for authentication then the credential
@@ -209,24 +209,24 @@ public class HazelcastSharedCache implements ISharedCache {
 //		return mapNameList;
 //	}
 
-	public TreeSet<MapItem> getMapSet() {
+	public TreeSet<IMapItem> getMapSet() {
 		return mapSet;
 	}
 
 	@SuppressWarnings("rawtypes")
-	private TreeSet<MapItem> __getMapSet() {
-		TreeSet<MapItem> allSet = new TreeSet<MapItem>();
+	private TreeSet<IMapItem> __getMapSet() {
+		TreeSet<IMapItem> allSet = new TreeSet<IMapItem>();
 		MapItem rootMapItem = new MapItem("", "/", null, null);
 		allSet.add(rootMapItem);
-		HashMap<String, MapItem> allMap = new HashMap<String, MapItem>();
+		HashMap<String, IMapItem> allMap = new HashMap<String, IMapItem>();
 		if (mapList.size() > 0) {
-			rootMapItem.childSet = new TreeSet<MapItem>();
+			rootMapItem.setChildSet(new TreeSet<IMapItem>());
 			for (IMap map : mapList) {
 				String mapName = map.getName();
 				String[] tokens = mapName.split("\\/");
 				String mapPath = "";
-				MapItem mapItem = null;
-				MapItem parentItem = rootMapItem;
+				IMapItem mapItem = null;
+				IMapItem parentItem = rootMapItem;
 				for (int i = 0; i < tokens.length; i++) {
 					String name = tokens[i];
 					mapPath = mapPath + "/" + name;
@@ -238,14 +238,14 @@ public class HazelcastSharedCache implements ISharedCache {
 						allSet.add(mapItem);
 					}
 
-					if (parentItem.childSet == null) {
-						parentItem.childSet = new TreeSet<MapItem>();
+					if (parentItem.getChildSet() == null) {
+						parentItem.setChildSet(new TreeSet<IMapItem>());
 					}
-					parentItem.childSet.add(mapItem);
+					parentItem.getChildSet().add(mapItem);
 					parentItem = mapItem;
 				}
 				if (mapItem != null) {
-					mapItem.map = map;
+					((MapItem)mapItem).map = map;
 				}
 
 			}
@@ -265,11 +265,11 @@ public class HazelcastSharedCache implements ISharedCache {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static class MapItem implements Comparable {
+	public static class MapItem implements IMapItem {
 		String mapPath;
 		String name;
 		IMap map;
-		TreeSet<MapItem> childSet;
+		TreeSet<IMapItem> childSet;
 
 		public MapItem(String name, String mapPath, IMap map, TreeSet<MapItem> childSet) {
 			this.name = name;
@@ -297,7 +297,12 @@ public class HazelcastSharedCache implements ISharedCache {
 			}
 		}
 
-		public TreeSet<MapItem> getChildSet(boolean recursive) {
+		@Override
+		public void setChildSet(TreeSet<IMapItem> childSet) {
+			this.childSet = childSet;
+		}
+
+		public TreeSet<IMapItem> getChildSet(boolean recursive) {
 			if (recursive) {
 				// TODO:
 				return childSet;
@@ -307,8 +312,12 @@ public class HazelcastSharedCache implements ISharedCache {
 		}
 
 		@Override
+		public TreeSet<IMapItem> getChildSet() {
+			return childSet;
+		}
+
+		@Override
 		public String toString() {
-//			return "MapItem [mapPath=" + mapPath + ", name=" + name + ", map=" + map + ", childSet=" + childSet + "]";
 			return name;
 		}
 

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.netcrest.pado</groupId>
+		<artifactId>hazelcast-desktop-parent</artifactId>
+		<version>0.1.4-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>hazelcast-desktop-common</artifactId>
+	<packaging>jar</packaging>
+	<name>hazelcast-desktop-common</name>
+	<description>Hazelcast Desktop Common package</description>
+
+	<url>http://maven.apache.org</url>
+
+	<!-- NOTE: hazelcast-addon is not available for the public. It must be obtained 
+		from Hazelcast by contacting the Hazelcast Consulting team. See README.md 
+		for details. -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<gemfire.version>8.2.0</gemfire.version>
+	</properties>
+
+	<dependencies>
+		<!-- Pado Desktop -->
+		<dependency>
+			<groupId>pado-desktop</groupId>
+			<artifactId>com.netcrest.pado</artifactId>
+			<version>1.0.6-B4</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/../lib/pado/pado-desktop.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<!-- DO NOT CHANGE THE *ORDER* IN WHICH THESE PROFILES ARE DEFINED! -->
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.hazelcast.addon</groupId>
+					<artifactId>hazelcast-addon-core-3</artifactId>
+					<version>${hazelcast-addon.version}</version>
+					<exclusions>
+						<exclusion>
+							<artifactId>hazelcast-addon-core-4</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>4</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.hazelcast.addon</groupId>
+					<artifactId>hazelcast-addon-core-4</artifactId>
+					<version>${hazelcast-addon.version}</version>
+					<exclusions>
+						<exclusion>
+							<artifactId>hazelcast-addon-core-3</artifactId>
+						</exclusion>
+					</exclusions>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+</project>

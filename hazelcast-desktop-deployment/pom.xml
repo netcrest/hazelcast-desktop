@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.netcrest.pado</groupId>
 		<artifactId>hazelcast-desktop-parent</artifactId>
-		<version>0.1.3-SNAPSHOT</version>
+		<version>0.1.4-SNAPSHOT</version>
 	</parent>
 	<artifactId>hazelcast-desktop-deployment</artifactId>
 	<name>hazelcast-desktop-deployment</name>
@@ -20,6 +20,17 @@
 			<groupId>com.netcrest.pado</groupId>
 			<artifactId>hazelcast-desktop-core</artifactId>
 			<version>${hazelcast-desktop.version}</version>
+		</dependency>
+		<!-- Hazelcast Addon -->
+ 		<dependency>
+			<groupId>org.hazelcast.addon</groupId>
+			<artifactId>hazelcast-addon-core-3</artifactId>
+			<version>${hazelcast-addon.version}</version>
+		</dependency>
+ 		<dependency>
+			<groupId>org.hazelcast.addon</groupId>
+			<artifactId>hazelcast-addon-core-4</artifactId>
+			<version>${hazelcast-addon.version}</version>
 		</dependency>
 	</dependencies>
 

@@ -39,6 +39,7 @@ import com.netcrest.pado.ui.swing.ISharedCache;
 import com.netcrest.pado.ui.swing.info.LoginInfo;
 import com.netcrest.pado.ui.swing.pado.gemfire.ICommandNames;
 import com.netcrest.pado.ui.swing.pado.gemfire.PadoInfoManager;
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.HazelcastSharedCache;
 import com.netcrest.services.ICommandSpace;
 import com.netcrest.services.IPersistenceManager;
 import com.netcrest.services.IPreferenceManager;

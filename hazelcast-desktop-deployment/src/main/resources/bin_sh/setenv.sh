@@ -2,6 +2,9 @@
 
 SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
+# Set the Hazelcast major version number. Currenlty supported: 3 or 4.
+HAZELCAST_MAJOR_VERSION_NUMBER=3
+
 # The following is for hazelcast-addon. The .addonenv.sh is
 # placed in this directory during the build time.
 if [ -f $SCRIPT_DIR/.addonenv.sh ]; then
@@ -62,18 +65,21 @@ if [[ ${OS_NAME} == CYGWIN* ]]; then
    HAZELCAST_CLIENT_CONFIG_FILE="$(cygpath -wp "$HAZELCAST_CLIENT_CONFIG_FILE")"
 fi
 
+SHARED_CACHE_CLASS=com.netcrest.pado.ui.swing.pado.hazelcast.v${HAZELCAST_MAJOR_VERSION_NUMBER}.HazelcastSharedCacheV${HAZELCAST_MAJOR_VERSION_NUMBER}
+
 JAVA_OPTS="-Xms256m -Xmx1024m -client 
 -DcodeBaseURL=$CODEBASE_URL \
 -DpreferenceURL=etc/desktop.properties \
 -Dhazelcast.client.config=$HAZELCAST_CLIENT_CONFIG_FILE
 -Dhazelcast.diagnostics.metric.distributed.datastructures=true \
--Djavax.xml.parsers.DocumentBuilderFactory=com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"
+-Djavax.xml.parsers.DocumentBuilderFactory=com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl \
+-Dpado.sharedCache.class=$SHARED_CACHE_CLASS"
 
 # 
 # class path
 #
 PLUGIN_JARS=$NAF_HOME/plugins/*
-LIB_JARS=$NAF_HOME/lib/*
+LIB_JARS=$NAF_HOME/lib/*:$NAF_HOME/lib/v${HAZELCAST_MAJOR_VERSION_NUMBER}/*
 NAF_JARS=$NAF_HOME/lib/naf/*
 PADO_JARS=$NAF_HOME/lib/pado/*
 DEMO_JARS=$NAF_HOME/lib/demo/*

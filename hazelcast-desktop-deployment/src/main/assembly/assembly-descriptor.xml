@@ -8,6 +8,32 @@
 	</formats>
 	<includeBaseDirectory>true</includeBaseDirectory>
 	<baseDirectory>hazelcast-desktop_${hazelcast-desktop.version}</baseDirectory>
+	
+	<moduleSets>
+		<moduleSet>
+			<useAllReactorProjects>true</useAllReactorProjects>
+			<includes>
+				<include>*:hazelcast-desktop-imdg-3</include>
+			</includes>
+			<binaries>
+				<includeDependencies>false</includeDependencies>
+				<outputDirectory>lib/v3/</outputDirectory>
+				<unpack>false</unpack>
+			</binaries>
+		</moduleSet>
+		<moduleSet>
+			<useAllReactorProjects>true</useAllReactorProjects>
+			<includes>
+				<include>*:hazelcast-desktop-imdg-4</include>
+			</includes>
+			<binaries>
+				<includeDependencies>false</includeDependencies>
+				<outputDirectory>lib/v4/</outputDirectory>
+				<unpack>false</unpack>
+			</binaries>
+		</moduleSet>
+	</moduleSets>
+	
 	<dependencySets>
 		<dependencySet>
 			<useProjectArtifact>false</useProjectArtifact>
@@ -17,6 +43,7 @@
 				<exclude>com.hazelcast:hazelcast-all</exclude>
 				<exclude>com.hazelcast:hazelcast-enterprise-all</exclude>
 				<exclude>com.netcrest.pado:*</exclude>
+				<exclude>org.hazelcast.addon:*</exclude>
 				<exclude>antlr:antlr</exclude>
 				<exclude>org.apache.ant</exclude>
 				<exclude>org.slf4j:*</exclude>
@@ -41,7 +68,25 @@
 			</includes>
 			<outputDirectory>lib/pado</outputDirectory>
 		</dependencySet>
+		
+		<!-- Hazelcast Addon -->		
+		<dependencySet>
+			<useProjectArtifact>false</useProjectArtifact>
+			<includes>
+				<include>org.hazelcast.addon:hazelcast-addon-core-3</include>
+			</includes>
+			<outputDirectory>lib/v3</outputDirectory>
+		</dependencySet>
+		<dependencySet>
+			<useProjectArtifact>false</useProjectArtifact>
+			<includes>
+				<include>org.hazelcast.addon:hazelcast-addon-core-4</include>
+			</includes>
+			<outputDirectory>lib/v4</outputDirectory>
+		</dependencySet>
+
 	</dependencySets>
+
 
 	<fileSets>
 		<!-- Collect all resources -->

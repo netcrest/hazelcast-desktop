@@ -11,7 +11,7 @@ import org.hazelcast.addon.hql.impl.PageResultsImpl;
 import com.netcrest.pado.index.exception.GridQueryResultSetExpiredException;
 import com.netcrest.pado.index.service.GridQuery;
 import com.netcrest.pado.index.service.IScrollableResultSet;
-import com.netcrest.pado.ui.swing.pado.hazelcast.HazelcastSharedCache;
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.HazelcastSharedCache;
 
 @SuppressWarnings("rawtypes")
 public class QueryResultSet<T> implements IScrollableResultSet<T> {

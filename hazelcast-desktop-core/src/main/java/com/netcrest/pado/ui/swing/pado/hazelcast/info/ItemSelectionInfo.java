@@ -1,13 +1,13 @@
 package com.netcrest.pado.ui.swing.pado.hazelcast.info;
 
-import com.netcrest.pado.ui.swing.pado.hazelcast.HazelcastSharedCache;
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.IMapItem;
 
 public class ItemSelectionInfo
 {
 	private String gridId;
-	private HazelcastSharedCache.MapItem mapItem;
+	private IMapItem mapItem;
 
-	public ItemSelectionInfo(String gridId, HazelcastSharedCache.MapItem item)
+	public ItemSelectionInfo(String gridId, IMapItem item)
 	{
 		this.gridId = gridId;
 		this.mapItem = item;
@@ -23,12 +23,12 @@ public class ItemSelectionInfo
 		this.gridId = gridId;
 	}
 
-	public HazelcastSharedCache.MapItem getItem()
+	public IMapItem getItem()
 	{
 		return mapItem;
 	}
 
-	public void setItem(HazelcastSharedCache.MapItem item)
+	public void setItem(IMapItem item)
 	{
 		this.mapItem = item;
 	}
