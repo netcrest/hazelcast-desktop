@@ -9,7 +9,7 @@ SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 #HAZELCAST_ADDON_HOME=
 
 # Set the Hazelcast major version number. Currenlty supported: 3 or 4.
-HAZELCAST_MAJOR_VERSION_NUMBER=4
+HAZELCAST_MAJOR_VERSION_NUMBER=3
 
 # The following is for hazelcast-addon. The .addonenv.sh is
 # placed in this directory during the build time.
