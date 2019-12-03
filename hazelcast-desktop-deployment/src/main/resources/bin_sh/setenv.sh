@@ -1,6 +1,13 @@
 #!/bin/bash
 
 SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
+BASE_DIR="$(dirname "$SCRIPT_DIR")"
+
+# Set Hazelcast Installation Path
+#HAZELCAST_HOME=
+
+# Set Hazelcast Addon Installation Path
+#HAZELCAST_ADDON_HOME=
 
 # Set the Hazelcast major version number. Currenlty supported: 3 or 4.
 HAZELCAST_MAJOR_VERSION_NUMBER=3
@@ -10,8 +17,6 @@ HAZELCAST_MAJOR_VERSION_NUMBER=3
 if [ -f $SCRIPT_DIR/.addonenv.sh ]; then
    . $SCRIPT_DIR/.addonenv.sh > /dev/null
 fi
-
-BASE_DIR="$(dirname "$SCRIPT_DIR")"
 
 # OS_NAME in uppercase
 OS_NAME=`uname`
@@ -65,7 +70,9 @@ if [[ ${OS_NAME} == CYGWIN* ]]; then
    HAZELCAST_CLIENT_CONFIG_FILE="$(cygpath -wp "$HAZELCAST_CLIENT_CONFIG_FILE")"
 fi
 
-SHARED_CACHE_CLASS=com.netcrest.pado.ui.swing.pado.hazelcast.v${HAZELCAST_MAJOR_VERSION_NUMBER}.HazelcastSharedCacheV${HAZELCAST_MAJOR_VERSION_NUMBER}
+MAJOR_VERSION_DIR=v$HAZELCAST_MAJOR_VERSION_NUMBER
+
+SHARED_CACHE_CLASS=com.netcrest.pado.ui.swing.pado.hazelcast.${MAJOR_VERSION_DIR}.HazelcastSharedCacheV${HAZELCAST_MAJOR_VERSION_NUMBER}
 
 JAVA_OPTS="-Xms256m -Xmx1024m -client 
 -DcodeBaseURL=$CODEBASE_URL \
@@ -79,12 +86,13 @@ JAVA_OPTS="-Xms256m -Xmx1024m -client
 # class path
 #
 PLUGIN_JARS=$NAF_HOME/plugins/*
-LIB_JARS=$NAF_HOME/lib/*:$NAF_HOME/lib/v${HAZELCAST_MAJOR_VERSION_NUMBER}/*
+LIB_JARS=$NAF_HOME/lib/*:$NAF_HOME/lib/${MAJOR_VERSION_DIR}/*
 NAF_JARS=$NAF_HOME/lib/naf/*
 PADO_JARS=$NAF_HOME/lib/pado/*
 DEMO_JARS=$NAF_HOME/lib/demo/*
 
 export CLASSPATH=$DESKTOP_HOME:$DESKTOP_HOME/classes:$PLUGIN_JARS:$LIB_JARS:$PADO_JARS:$NAF_JARS:$DEMO_JARS:$CLASSPATH
+export CLASSPATH=$CLASSPATH;$HAZELCAST_HOME/lib/*;$HAZELCAST_ADDON_HOME/plugins/*;$HAZELCAST_ADDON_HOME/plugins/$MAJOR_VERSION_DIR/*;$HAZELCAST_ADDON_HOME/lib/*;$HAZELCAST_ADDON_HOME/lib/$MAJOR_VERSION_DIR/*
 
 if [[ ${OS_NAME} == CYGWIN* ]]; then
    export CLASSPATH="$(cygpath -wp "$CLASSPATH")"
