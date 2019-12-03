@@ -10,7 +10,7 @@ BASE_DIR="$(dirname "$SCRIPT_DIR")"
 #HAZELCAST_ADDON_HOME=
 
 # Set the Hazelcast major version number. Currenlty supported: 3 or 4.
-HAZELCAST_MAJOR_VERSION_NUMBER=3
+HAZELCAST_MAJOR_VERSION_NUMBER=4
 
 # The following is for hazelcast-addon. The .addonenv.sh is
 # placed in this directory during the build time.
@@ -92,7 +92,7 @@ PADO_JARS=$NAF_HOME/lib/pado/*
 DEMO_JARS=$NAF_HOME/lib/demo/*
 
 export CLASSPATH=$DESKTOP_HOME:$DESKTOP_HOME/classes:$PLUGIN_JARS:$LIB_JARS:$PADO_JARS:$NAF_JARS:$DEMO_JARS:$CLASSPATH
-export CLASSPATH=$CLASSPATH;$HAZELCAST_HOME/lib/*;$HAZELCAST_ADDON_HOME/plugins/*;$HAZELCAST_ADDON_HOME/plugins/$MAJOR_VERSION_DIR/*;$HAZELCAST_ADDON_HOME/lib/*;$HAZELCAST_ADDON_HOME/lib/$MAJOR_VERSION_DIR/*
+export CLASSPATH=$CLASSPATH:$HAZELCAST_HOME/lib/*:$HAZELCAST_ADDON_HOME/plugins/*:$HAZELCAST_ADDON_HOME/plugins/$MAJOR_VERSION_DIR/*:$HAZELCAST_ADDON_HOME/lib/*:$HAZELCAST_ADDON_HOME/lib/$MAJOR_VERSION_DIR/*
 
 if [[ ${OS_NAME} == CYGWIN* ]]; then
    export CLASSPATH="$(cygpath -wp "$CLASSPATH")"
