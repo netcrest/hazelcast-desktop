@@ -1,7 +1,6 @@
 #!/bin/bash
 
 SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
-BASE_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Set Hazelcast Installation Path
 #HAZELCAST_HOME=
@@ -17,6 +16,9 @@ HAZELCAST_MAJOR_VERSION_NUMBER=4
 if [ -f $SCRIPT_DIR/.addonenv.sh ]; then
    . $SCRIPT_DIR/.addonenv.sh > /dev/null
 fi
+
+# Set BASE_DIR here to overwrite .addonenv.sh
+BASE_DIR="$(dirname "$SCRIPT_DIR")"
 
 # OS_NAME in uppercase
 OS_NAME=`uname`
