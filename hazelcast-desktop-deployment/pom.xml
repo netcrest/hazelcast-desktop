@@ -23,14 +23,14 @@
 		</dependency>
 		<!-- Hazelcast Addon -->
  		<dependency>
-			<groupId>org.hazelcast.addon</groupId>
+			<groupId>padogrid.addon</groupId>
 			<artifactId>hazelcast-addon-core-3</artifactId>
-			<version>${hazelcast-addon.version}</version>
+			<version>${padogrid.version}</version>
 		</dependency>
  		<dependency>
-			<groupId>org.hazelcast.addon</groupId>
+			<groupId>padogrid.addon</groupId>
 			<artifactId>hazelcast-addon-core-4</artifactId>
-			<version>${hazelcast-addon.version}</version>
+			<version>${padogrid.version}</version>
 		</dependency>
 	</dependencies>
 

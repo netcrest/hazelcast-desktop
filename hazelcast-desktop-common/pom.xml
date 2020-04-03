@@ -53,9 +53,9 @@
 			</activation>
 			<dependencies>
 				<dependency>
-					<groupId>org.hazelcast.addon</groupId>
+					<groupId>padogrid.addon</groupId>
 					<artifactId>hazelcast-addon-core-3</artifactId>
-					<version>${hazelcast-addon.version}</version>
+					<version>${padogrid.version}</version>
 					<exclusions>
 						<exclusion>
 							<artifactId>hazelcast-addon-core-4</artifactId>
@@ -68,9 +68,9 @@
 			<id>4</id>
 			<dependencies>
 				<dependency>
-					<groupId>org.hazelcast.addon</groupId>
+					<groupId>padogrid.addon</groupId>
 					<artifactId>hazelcast-addon-core-4</artifactId>
-					<version>${hazelcast-addon.version}</version>
+					<version>${padogrid.version}</version>
 					<exclusions>
 						<exclusion>
 							<artifactId>hazelcast-addon-core-3</artifactId>
