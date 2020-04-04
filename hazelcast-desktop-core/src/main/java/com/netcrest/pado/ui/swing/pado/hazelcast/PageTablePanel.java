@@ -58,6 +58,8 @@ import com.netcrest.pado.ui.swing.pado.gemfire.PadoInfoExplorer;
 import com.netcrest.pado.ui.swing.pado.gemfire.ServerInputPanel;
 import com.netcrest.pado.ui.swing.pado.gemfire.info.BucketDisplayInfo;
 import com.netcrest.pado.ui.swing.pado.hazelcast.GridTableModel.ResultType;
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.HazelcastSharedCache;
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.IMapItem;
 import com.netcrest.pado.ui.swing.pado.hazelcast.info.ItemSelectionInfo;
 import com.netcrest.pado.ui.swing.pado.hazelcast.query.QueryResultSet;
 import com.netcrest.pado.ui.swing.table.ObjectTreeFrame;
@@ -634,7 +636,7 @@ public class PageTablePanel extends JPanel implements Externalizable {
 		queryControlPanel.setKeyTypeComboBoxVisible(tableModel != null && tableModel.isKeyMap());
 	}
 
-	private String getResultName(String gridId, HazelcastSharedCache.MapItem item) {
+	private String getResultName(String gridId, IMapItem item) {
 		if (item == null) {
 			return "";
 		} else if (gridId != null) {

@@ -11,10 +11,10 @@
 		<version>0.1.5</version>
 	</parent>
 
-	<artifactId>hazelcast-desktop-core</artifactId>
+	<artifactId>hazelcast-desktop-imdg-3</artifactId>
 	<packaging>jar</packaging>
-	<name>hazelcast-desktop-core</name>
-	<description>Hazelcast Desktop core package</description>
+	<name>hazelcast-desktop-imdg-3</name>
+	<description>Hazelcast Desktop IMDG package</description>
 
 	<url>http://maven.apache.org</url>
 
@@ -24,6 +24,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
+		<hazelcast.version>3.12</hazelcast.version>
 		<gemfire.version>8.2.0</gemfire.version>
 		<skipTests>true</skipTests>
 	</properties>
@@ -44,13 +45,20 @@
 	</repositories>
 
 	<dependencies>
+
+		<!-- Hazelcast Addon -->
+		<dependency>
+			<groupId>padogrid.addon</groupId>
+			<artifactId>hazelcast-addon-core-3</artifactId>
+			<version>${padogrid.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>com.netcrest.pado</groupId>
 			<artifactId>hazelcast-desktop-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
-		<!-- Internal dependencies found in the lib/ directory -->
+
 
 		<!-- NAF Desktop -->
 		<dependency>
@@ -75,6 +83,15 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.7</version>
+		</dependency>
+
+		<!-- Hazelcast IMDG Client -->
+
+		<!-- https://mvnrepository.com/artifact/com.hazelcast/hazelcast-client -->
+		<dependency>
+			<groupId>com.hazelcast</groupId>
+			<artifactId>hazelcast-client</artifactId>
+			<version>${hazelcast.version}</version>
 		</dependency>
 
 		<dependency>
@@ -155,40 +172,4 @@
 			</plugin>
 		</plugins>
 	</build>
-	
-	<profiles>
-		<profile>
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>padogrid.addon</groupId>
-					<artifactId>hazelcast-addon-core-3</artifactId>
-					<version>${padogrid.version}</version>
-					<exclusions>
-						<exclusion>
-							<artifactId>hazelcast-addon-core-4</artifactId>
-						</exclusion>
-					</exclusions>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>4</id>
-			<dependencies>
-				<dependency>
-					<groupId>padogrid.addon</groupId>
-					<artifactId>hazelcast-addon-core-4</artifactId>
-					<version>${padogrid.version}</version>
-					<exclusions>
-						<exclusion>
-							<artifactId>hazelcast-addon-core-3</artifactId>
-						</exclusion>
-					</exclusions>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
 </project>

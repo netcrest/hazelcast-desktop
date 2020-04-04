@@ -37,6 +37,8 @@ import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.IMapItem;
+
 /**
  * Displays a DOM document in a tree control.
  */
@@ -71,9 +73,9 @@ public class MapTree extends JTree implements DragGestureListener, DragSourceLis
 
 	} // <init>()
 
-	private HazelcastSharedCache.MapItem getItem(Object treeNode)
+	private IMapItem getItem(Object treeNode)
 	{
-		HazelcastSharedCache.MapItem  item = (HazelcastSharedCache.MapItem ) ((HazelcastMapTreeModel) getModel()).getItem(treeNode);
+		IMapItem  item = (IMapItem ) ((HazelcastMapTreeModel) getModel()).getItem(treeNode);
 		if (item == null) {
 			return null;
 		}
@@ -88,7 +90,7 @@ public class MapTree extends JTree implements DragGestureListener, DragSourceLis
 		expandRow(0);
 	}
 
-	public void reset(TreeSet<HazelcastSharedCache.MapItem> itemSet, boolean showNoHiddenMaps)
+	public void reset(TreeSet<IMapItem> itemSet, boolean showNoHiddenMaps)
 	{
 		((HazelcastMapTreeModel) getModel()).reset(itemSet, showNoHiddenMaps);
 		expandRow(0);
@@ -96,7 +98,7 @@ public class MapTree extends JTree implements DragGestureListener, DragSourceLis
 
 	public String getSelectedNodeName()
 	{
-		HazelcastSharedCache.MapItem item = getSelectedItem();
+		IMapItem item = getSelectedItem();
 		if (item == null) {
 			return null;
 		}
@@ -121,7 +123,7 @@ public class MapTree extends JTree implements DragGestureListener, DragSourceLis
 		return "hazelcast";
 	}
 
-	public HazelcastSharedCache.MapItem getSelectedItem()
+	public IMapItem getSelectedItem()
 	{
 		TreePath path = this.getLeadSelectionPath();
 		if (path == null) {

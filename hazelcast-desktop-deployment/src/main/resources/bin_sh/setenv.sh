@@ -2,12 +2,22 @@
 
 SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 
+# Set Hazelcast Installation Path
+#HAZELCAST_HOME=
+
+# Set Hazelcast Addon Installation Path
+#HAZELCAST_ADDON_HOME=
+
+# Set the Hazelcast major version number. Currenlty supported: 3 or 4.
+HAZELCAST_MAJOR_VERSION_NUMBER=3
+
 # The following is for hazelcast-addon. The .addonenv.sh is
 # placed in this directory during the build time.
 if [ -f $SCRIPT_DIR/.addonenv.sh ]; then
    . $SCRIPT_DIR/.addonenv.sh > /dev/null
 fi
 
+# Set BASE_DIR here to overwrite .addonenv.sh
 BASE_DIR="$(dirname "$SCRIPT_DIR")"
 
 # OS_NAME in uppercase
@@ -62,23 +72,29 @@ if [[ ${OS_NAME} == CYGWIN* ]]; then
    HAZELCAST_CLIENT_CONFIG_FILE="$(cygpath -wp "$HAZELCAST_CLIENT_CONFIG_FILE")"
 fi
 
+MAJOR_VERSION_DIR=v$HAZELCAST_MAJOR_VERSION_NUMBER
+
+SHARED_CACHE_CLASS=com.netcrest.pado.ui.swing.pado.hazelcast.${MAJOR_VERSION_DIR}.HazelcastSharedCacheV${HAZELCAST_MAJOR_VERSION_NUMBER}
+
 JAVA_OPTS="-Xms256m -Xmx1024m -client 
 -DcodeBaseURL=$CODEBASE_URL \
 -DpreferenceURL=etc/desktop.properties \
 -Dhazelcast.client.config=$HAZELCAST_CLIENT_CONFIG_FILE
 -Dhazelcast.diagnostics.metric.distributed.datastructures=true \
--Djavax.xml.parsers.DocumentBuilderFactory=com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"
+-Djavax.xml.parsers.DocumentBuilderFactory=com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl \
+-Dpado.sharedCache.class=$SHARED_CACHE_CLASS"
 
 # 
 # class path
 #
 PLUGIN_JARS=$NAF_HOME/plugins/*
-LIB_JARS=$NAF_HOME/lib/*
+LIB_JARS=$NAF_HOME/lib/*:$NAF_HOME/lib/${MAJOR_VERSION_DIR}/*
 NAF_JARS=$NAF_HOME/lib/naf/*
 PADO_JARS=$NAF_HOME/lib/pado/*
 DEMO_JARS=$NAF_HOME/lib/demo/*
 
 export CLASSPATH=$DESKTOP_HOME:$DESKTOP_HOME/classes:$PLUGIN_JARS:$LIB_JARS:$PADO_JARS:$NAF_JARS:$DEMO_JARS:$CLASSPATH
+export CLASSPATH=$CLASSPATH:$HAZELCAST_HOME/lib/*:$HAZELCAST_ADDON_HOME/plugins/*:$HAZELCAST_ADDON_HOME/plugins/$MAJOR_VERSION_DIR/*:$HAZELCAST_ADDON_HOME/lib/*:$HAZELCAST_ADDON_HOME/lib/$MAJOR_VERSION_DIR/*
 
 if [[ ${OS_NAME} == CYGWIN* ]]; then
    export CLASSPATH="$(cygpath -wp "$CLASSPATH")"

@@ -3,7 +3,6 @@ package com.netcrest.pado.ui.swing.pado.hazelcast;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -30,6 +29,8 @@ import com.netcrest.commandspace.ICommandProvider;
 import com.netcrest.commandspace.ReturnDataObject;
 import com.netcrest.pado.internal.util.PadoUtil;
 import com.netcrest.pado.ui.swing.GridFrame;
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.HazelcastSharedCache;
+import com.netcrest.pado.ui.swing.pado.hazelcast.common.IMapItem;
 import com.netcrest.pado.ui.swing.pado.hazelcast.info.ItemSelectionInfo;
 import com.netcrest.ui.swing.util.SwingUtil;
 
@@ -177,7 +178,7 @@ public class MapTreePanel extends JPanel implements Externalizable
 	private void nodeSelected()
 	{
 		TreeNode treeNode = (TreeNode) physicalPathInfoTree.getLastSelectedPathComponent();
-		HazelcastSharedCache.MapItem item = ((HazelcastMapTreeModel) physicalPathInfoTree.getModel()).getItem(treeNode);
+		IMapItem item = ((HazelcastMapTreeModel) physicalPathInfoTree.getModel()).getItem(treeNode);
 		commandPost.execCommand(ICommandNames.BUS_ACTIVE_WORKSHEET, ICommandNames.CS_PADO_INFO.TOPIC,
 				ICommandNames.CS_PADO_INFO.COMMAND_onMapItem,
 				new ItemSelectionInfo(physicalPathInfoTree.getSelectedTreeNodeGridId(), item));
@@ -202,8 +203,8 @@ public class MapTreePanel extends JPanel implements Externalizable
 	{
 		boolean showNoHiddenPaths = chckbxShowHidden.isSelected();
 		HazelcastSharedCache.getSharedCache().refresh();
-		TreeSet<HazelcastSharedCache.MapItem> itemSet = HazelcastSharedCache.getSharedCache().getMapSet();
-		itemSet = new TreeSet<HazelcastSharedCache.MapItem>(itemSet);
+		TreeSet<IMapItem> itemSet = HazelcastSharedCache.getSharedCache().getMapSet();
+		itemSet = new TreeSet<IMapItem>(itemSet);
 		physicalPathInfoTree.reset(itemSet, showNoHiddenPaths);
 	}
 
@@ -212,7 +213,7 @@ public class MapTreePanel extends JPanel implements Externalizable
 		physicalPathInfoTree.clearSelection();
 	}
 
-	public HazelcastSharedCache.MapItem getSelectedItem()
+	public IMapItem getSelectedItem()
 	{
 		return physicalPathInfoTree.getSelectedItem();
 	}
