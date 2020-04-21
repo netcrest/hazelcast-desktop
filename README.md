@@ -88,7 +88,7 @@ Place all the application specific jar files in the `plugins/` directory, which 
 If you are running Hazelcast Desktop as a standalone and not as a desktop app in a `hazelcast-addon` workspace, then you must set the environment variables in `bin_win\setenv.sh`.
 
 - HAZELCAST_HOME
-- HAZELCAST_ADDON_HOME
+- PADOGRID_HOME
 - HAZELCAST_MAJOR_VERSION_NUMBER
 - JAVA_HOME
 
@@ -102,7 +102,7 @@ cd bin_sh
 Edit `bin_win\setenv.bat` and set the following environment variables:
 
 - HAZELCAST_HOME
-- HAZELCAST_ADDON_HOME
+- PADOGRID_HOME
 - HAZELCAST_MAJOR_VERSION_NUMBER
 - JAVA_HOME
 
