@@ -8,7 +8,7 @@ REM Set Hazelcast Installation Path
 REM @set HAZELCAST_HOME=
 
 REM Set Hazelcast Addon Installation Path
-REM @set HAZELCAST_ADDON_HOME=
+REM @set PADOGRID_HOME=
 
 REM Set the Hazelcast major version number. Currenlty supported: 3 or 4.
 @set HAZELCAST_MAJOR_VERSION_NUMBER=3
@@ -68,4 +68,4 @@ REM
 @set DEMO_JARS=%NAF_HOME%/lib/demo/*
 
 @set CLASSPATH=%DESKTOP_HOME%;%DESKTOP_HOME%/classes;%PLUGIN_JARS%;%LIB_JARS%;%NAF_JARS%;%PADO_JARS%;%DEMO_JARS%
-@set CLASSPATH=%CLASSPATH%;%HAZELCAST_HOME%/lib/*;%HAZELCAST_ADDON_HOME%/plugins/*;%HAZELCAST_ADDON_HOME%/plugins/%MAJOR_VERSION_DIR%/*;%HAZELCAST_ADDON_HOME%/lib/*;%HAZELCAST_ADDON_HOME%/lib/%MAJOR_VERSION_DIR%/*
+@set CLASSPATH=%CLASSPATH%;%HAZELCAST_HOME%/lib/*;%PADOGRID_HOME%/hazelcast/plugins/%MAJOR_VERSION_DIR%/*;%PADOGRID_HOME%/lib/*;%PADOGRID_HOME%/hazelcast/lib/%MAJOR_VERSION_DIR%/*
