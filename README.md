@@ -9,32 +9,35 @@ This distribution contains Hazelcast Desktop powered by Pado Desktop.
 ## License
 Apache License, Version 2.0
 
+## Installing Hazelcast Desktop
 
-## Downloading Hazelcast Desktop
+You can install Hazelcast Desktop as a PadoGrid app or a standalone app.
 
-Hazelcast Desktop is open source and downloadable from https://github.com/netcrest/hazelcast-desktop
+### As PadoGrid App
 
-
-## Compiling Hazelcast Desktop
-
-To compile Hazelcast Desktop, you must first obtain the `hazelcast-addon` library provided by Hazelcast Consulting team. This library comes in the form of a single jar file which must be installed in the local repository by executing the following:
+Install the desktop app by running the PadoGrid's `create_app` as follows:
 
 ```console
-mvn install:install-file -Dfile=<path-to-hazelcast-addon-file> -DgroupId=org.hazelcast.addon \
-    -DartifactId=hazelcast-addon -Dversion=<version> -Dpackaging=jar
+create_app -app desktop
 ```
 
-Once the hazelcast-addon libary has been installed in your local repository, edit the `pom.xml` file in the root (parent) directory to include the correct version number for `<hazelcast-addon.version>`. For example, the following includes version 0.2.3 in the `pom.xml` file.
+### As Standalone App
+
+You must first download and build PadoGrid. Hazelcast Desktop depends on PadoGrid's Hazelcast addon library.
+
+**PadoGrid Repo:** [https://github.com/padogrid/padogrid](https://github.com/padogrid/padogrid). 
+
+Once the PadoGrid libary has been built and installed in your local Maven repository, edit the `pom.xml` file in the root (parent) directory to include the correct version number for `<padogrid.version>`. For example, the following includes version 0.9.1 in the `pom.xml` file.
 
 ```xml
 <!-- In pom.xml (root directory) -->
 <properties>
    ...
-   <hazelcast-addon.version>0.2.3</hazelcast-addon.version>
+   <padogrid.version>0.9.1</padogrid.version>
 </properties>
 ```
 
-To build the desktop binary, run the maven command as follows:
+To build the desktop binary, run the Maven command as follows:
 
 ```console
 mvn install
@@ -43,11 +46,18 @@ mvn install
 Upon successful build, you can find the Hazelcast Desktop distribution in the following `assembly` directory:
 
 ```console
-ls hazelcast-desktop-deployment/target/assembly/
-hazelcast-desktop_0.1.5-SNAPSHOT.tar.gz	hazelcast-desktop_0.1.5-SNAPSHOT.zip
+tree hazelcast-desktop-deployment/target/assembly
 ```
 
-## Installing Hazelcast Desktop
+**Output:**
+
+```console
+hazelcast-desktop-deployment/target/assembly
+├── hazelcast-desktop_0.1.6-SNPASHOT.tar.gz
+└── hazelcast-desktop_0.1.6-SNPASHOT.zip
+```
+
+#### Installing Hazelcast Desktop
 
 1. Unzip the `hazelcast-desktop_<version>.zip` file anywhere in the file system. It will create the `hazelcast-desktop_<version>` root directory.
 2. Edit `bin_win\setenv.bat` or `bin_sh/setenv.sh` to include the correct paths for **JAVA_HOME** and **CODEBASE_URL**.
@@ -58,12 +68,12 @@ Hazelcast Desktop runs on Java 1.8 or later versions.
 
 ## Hazelcast Versions
 
-Hazelcast Desktop supports Hazelcast 3.x and 4.x. It has been tested with Hazelcast 3.12.x and 4.0-BETA-1.
+Hazelcast Desktop supports Hazelcast 3.x and 4.x. It has been tested with Hazelcast 3.12.x and 4.0.
 
 
 ## Running Hazelcast Desktop
 
-By default, Hazelcast Desktop shows the login window during startup. To use the login window, all of Hazelcat client configuration must be done in the `etc/pado.properties` file. To disable the login window and use the `etc/hazelcast-client.xml` file instead, set the `hazelcast.client.config.file.enabled` property to `true` in the `etc/pado.properties` as follows:
+By default, Hazelcast Desktop shows the login window during startup. To use the login window, all of Hazelcast client configuration must be done in the `etc/pado.properties` file. To disable the login window and use the `etc/hazelcast-client.xml` file instead, set the `hazelcast.client.config.file.enabled` property to `true` in the `etc/pado.properties` as follows:
 
 ```console
 hazelcast.client.config.file.enabled=true
