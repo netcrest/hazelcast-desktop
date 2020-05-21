@@ -11,13 +11,13 @@ REM Set Hazelcast Addon Installation Path
 REM @set PADOGRID_HOME=
 
 REM Set the Hazelcast major version number. Currenlty supported: 3 or 4.
-@set HAZELCAST_MAJOR_VERSION_NUMBER=3
+@set HAZELCAST_MAJOR_VERSION_NUMBER=4
 
 REM 
 REM Set JAVA to the java executable of your choice.
 REM Java 1.8 is recommended.
 REM
-REM @set JAVA_HOME="C:\Program Files\Java\jdk1.8.0_144"
+REM @set JAVA_HOME="C:\Program Files\Java\jdk1.8.0_212"
 
 REM
 REM Set CODEBASE_URL  to this desktop installation directory. 
