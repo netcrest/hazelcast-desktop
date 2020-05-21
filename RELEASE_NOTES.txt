@@ -6,7 +6,8 @@ Hazelcast-Desktop
 Release: Version 0.1.7
 Release Date: 05/21/2020
 
-- Replaced assembly includes to padogrid-addon artifacts.
+- Replaced assembly includes with padogrid-addon artifacts.
+*************************************************************************
 
 Release: Version 0.1.6
 Release Date: 04/20/2020
