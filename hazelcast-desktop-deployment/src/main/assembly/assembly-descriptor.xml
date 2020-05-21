@@ -43,7 +43,7 @@
 				<exclude>com.hazelcast:hazelcast-all</exclude>
 				<exclude>com.hazelcast:hazelcast-enterprise-all</exclude>
 				<exclude>com.netcrest.pado:*</exclude>
-				<exclude>org.hazelcast.addon:*</exclude>
+				<exclude>padogrid.addon:*</exclude>
 				<exclude>antlr:antlr</exclude>
 				<exclude>org.apache.ant</exclude>
 				<exclude>org.slf4j:*</exclude>
@@ -59,7 +59,6 @@
 			</excludes>
 			<outputDirectory>lib/</outputDirectory>
 		</dependencySet>
-		
 		<!-- Pado -->
 		<dependencySet>
 			<useProjectArtifact>false</useProjectArtifact>
@@ -69,18 +68,25 @@
 			<outputDirectory>lib/pado</outputDirectory>
 		</dependencySet>
 		
-		<!-- Hazelcast Addon -->		
+		<!-- Hazelcast Addon -->	
 		<dependencySet>
 			<useProjectArtifact>false</useProjectArtifact>
 			<includes>
-				<include>org.hazelcast.addon:hazelcast-addon-core-3</include>
+				<include>padogrid.addon:hazelcast-addon-common</include>
+			</includes>
+			<outputDirectory>lib/</outputDirectory>
+		</dependencySet>	
+		<dependencySet>
+			<useProjectArtifact>false</useProjectArtifact>
+			<includes>
+				<include>padogrid.addon:hazelcast-addon-core-3</include>
 			</includes>
 			<outputDirectory>lib/v3</outputDirectory>
 		</dependencySet>
 		<dependencySet>
 			<useProjectArtifact>false</useProjectArtifact>
 			<includes>
-				<include>org.hazelcast.addon:hazelcast-addon-core-4</include>
+				<include>padogrid.addon:hazelcast-addon-core-4</include>
 			</includes>
 			<outputDirectory>lib/v4</outputDirectory>
 		</dependencySet>
