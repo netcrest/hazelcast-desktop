@@ -68,10 +68,11 @@
 			<outputDirectory>lib/pado</outputDirectory>
 		</dependencySet>
 		
-		<!-- Hazelcast Addon -->	
+		<!-- Hazelcast Addon -->
 		<dependencySet>
 			<useProjectArtifact>false</useProjectArtifact>
 			<includes>
+				<include>padogrid.addon:padogrid-common</include>
 				<include>padogrid.addon:hazelcast-addon-common</include>
 			</includes>
 			<outputDirectory>lib/</outputDirectory>
