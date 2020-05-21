@@ -1,7 +1,25 @@
 Hazelcast-Desktop
 =================
 
-©2019 Netcrest Technologies, LLC. All rights reserved.
+©2019,2020 Netcrest Technologies, LLC. All rights reserved.
+
+Release: Version 0.1.7
+Release Date: 05/21/2020
+
+- Replaced assembly includes with padogrid-addon artifacts.
+*************************************************************************
+
+Release: Version 0.1.6
+Release Date: 04/20/2020
+
+- Fixed PadoGrid name issues in standalone version.
+*************************************************************************
+
+Release: Version 0.1.5
+Release Date: 04/04/2020
+
+- Added support for PadoGrid
+*************************************************************************
 
 Release: Version 0.1.4
 Release Date: 12/03/2019
