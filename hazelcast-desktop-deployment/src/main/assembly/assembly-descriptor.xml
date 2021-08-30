@@ -36,8 +36,8 @@
 	
 	<dependencySets>
 		<dependencySet>
-			<useProjectArtifact>false</useProjectArtifact>
-			<excludes>
+<!-- 			<useProjectArtifact>false</useProjectArtifact>
+ -->			<excludes>
 				<!-- Remove hazelcast-all jars. Required jars
 				     are hazelcast and hazelcast-client. -->
 				<exclude>com.hazelcast:hazelcast-all</exclude>
@@ -56,6 +56,9 @@
 				<exclude>xom*</exclude>
 				<exclude>org.apache.lucene:lucene*</exclude>
 				<exclude>com.gemstone.gemfire:*</exclude>
+				<exclude>org.apache.geode:*</exclude>
+				<exclude>*avro*</exclude>
+				<exclude>io.debezium*</exclude>
 			</excludes>
 			<outputDirectory>lib/</outputDirectory>
 		</dependencySet>

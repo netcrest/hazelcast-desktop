@@ -24,7 +24,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<hazelcast-desktop.version>${project.version}</hazelcast-desktop.version>
-		<padogrid.version>0.9.1</padogrid.version>
+		<padogrid.version>0.9.10</padogrid.version>
 		<pado.version>0.4.3-B1</pado.version>
 		<skipTests>true</skipTests>
 	</properties>
