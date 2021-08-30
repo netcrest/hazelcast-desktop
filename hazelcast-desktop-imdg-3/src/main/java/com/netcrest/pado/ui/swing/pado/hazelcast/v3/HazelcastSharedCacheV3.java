@@ -112,6 +112,8 @@ public class HazelcastSharedCacheV3 implements IHazelcastSharedCache {
 			}
 		} else {
 			ClientConfig clientConfig = new ClientConfig();
+			String instanceName = PadoUtil.getProperty("hazelcast.client.config.instanceName", "hazelcast-desktop");
+			clientConfig.setInstanceName(instanceName);
 			clientConfig.getNetworkConfig().addAddress(locators);
 			registerSerializationClasses("hazelcast.client.config.serialization.portable.factories", clientConfig);
 			registerSerializationClasses("hazelcast.client.config.serialization.dataSerializable.factories",
