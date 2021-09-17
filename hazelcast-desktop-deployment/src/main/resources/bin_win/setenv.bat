@@ -45,11 +45,18 @@ if not exist "%LOG_DIR%" (
   @mkdir %LOG_DIR%
 )
 
+REM Set version to 4 if >=5
+if %HAZELCAST_MAJOR_VERSION_NUMBER% geq 5 (
+   @set __MAJOR_VERSION_NUMBER=4
+) else (
+   @set __MAJOR_VERSION_NUMBER=%HAZELCAST_MAJOR_VERSION_NUMBER%
+)
+
 @set HAZELCAST_CLIENT_CONFIG_FILE="%DESKTOP_HOME%\etc\hazelcast-client.xml"
 
-@set MAJOR_VERSION_DIR=v%HAZELCAST_MAJOR_VERSION_NUMBER%
+@set MAJOR_VERSION_DIR=v%__MAJOR_VERSION_NUMBER%
 
-@set SHARED_CACHE_CLASS=com.netcrest.pado.ui.swing.pado.hazelcast.%MAJOR_VERSION_DIR%.HazelcastSharedCacheV%HAZELCAST_MAJOR_VERSION_NUMBER%
+@set SHARED_CACHE_CLASS=com.netcrest.pado.ui.swing.pado.hazelcast.%MAJOR_VERSION_DIR%.HazelcastSharedCacheV%__MAJOR_VERSION_NUMBER%
 
 @set JAVA_OPTS=-Xms256m -Xmx1024m -client ^
 -DcodeBaseURL=%CODEBASE_URL% ^
