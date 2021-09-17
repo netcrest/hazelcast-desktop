@@ -16,7 +16,7 @@
 	<artifactId>hazelcast-desktop-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>hazelcast-desktop-parent</name>
-	<version>0.1.8</version>
+	<version>0.1.9</version>
 	<description>Hazelcast NAF (Pado) Desktop</description>
 
 	<properties>

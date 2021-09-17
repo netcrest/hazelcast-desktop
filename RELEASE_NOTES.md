@@ -3,6 +3,14 @@
 ©2019-2021 Netcrest Technologies, LLC. All rights reserved.
 https://github.com/netcrest/hazelcast-desktop
 
+## Version 0.1.9
+
+### Release Date: 09/17/2021
+
+- Added support for Hazelcast 5.x. Only the build setenv.sh file has been updated to share v4 with v5.
+
+----
+
 ## Version 0.1.8
 
 ### Release Date: 08/30/2021

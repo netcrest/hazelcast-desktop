@@ -11,6 +11,7 @@ REM Set Hazelcast Addon Installation Path
 REM @set PADOGRID_HOME=
 
 REM Set the Hazelcast major version number. Currenlty supported: 3 or 4.
+REM Note that you can set 4 for 5. They are compatible.
 @set HAZELCAST_MAJOR_VERSION_NUMBER=4
 
 REM 
