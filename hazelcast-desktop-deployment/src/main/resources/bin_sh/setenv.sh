@@ -8,14 +8,15 @@ SCRIPT_DIR="$(cd -P -- "$(dirname -- "$0")" && pwd -P)"
 # Set PadoGrid Installation Path
 #PADOGRID_HOME=
 
-# Set the Hazelcast major version number. Currenlty supported: 3 or 4.
-HAZELCAST_MAJOR_VERSION_NUMBER=3
-
 # The following is for hazelcast-addon. The .addonenv.sh is
 # placed in this directory during the build time.
 if [ -f $SCRIPT_DIR/.addonenv.sh ]; then
    . $SCRIPT_DIR/.addonenv.sh > /dev/null
 fi
+
+# Set the Hazelcast major version number. Currenlty supported: 3 or 4.
+# Note that you can set 4 for 5. They are compatible.
+HAZELCAST_MAJOR_VERSION_NUMBER=3
 
 # Set BASE_DIR here to overwrite .addonenv.sh
 BASE_DIR="$(dirname "$SCRIPT_DIR")"
