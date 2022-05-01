@@ -16,7 +16,7 @@
 	<artifactId>hazelcast-desktop-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>hazelcast-desktop-parent</name>
-	<version>0.1.9</version>
+	<version>0.1.10</version>
 	<description>Hazelcast NAF (Pado) Desktop</description>
 
 	<properties>
@@ -24,7 +24,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<hazelcast-desktop.version>${project.version}</hazelcast-desktop.version>
-		<padogrid.version>0.9.10</padogrid.version>
+		<padogrid.version>0.9.15-SNAPSHOT</padogrid.version>
 		<pado.version>0.4.3-B1</pado.version>
 		<skipTests>true</skipTests>
 	</properties>
@@ -44,6 +44,18 @@
         <repository>
             <id>Hazelcast Private Release Repository</id>
             <url>https://repository.hazelcast.com/release/</url>
+        </repository>
+        <repository>
+            <id>confluent kafka</id>
+            <url>https://packages.confluent.io/maven/</url>
+        </repository>
+        <repository>
+            <id>jnlp</id>
+            <url>http://java.freehep.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>gemfire</id>
+            <url>https://repo.spring.io/plugins-release/</url>
         </repository>
 	</repositories>
 
@@ -129,6 +141,7 @@
 		<module>hazelcast-desktop-common</module>
 		<module>hazelcast-desktop-imdg-3</module>
 		<module>hazelcast-desktop-imdg-4</module>
+		<module>hazelcast-desktop-imdg-5</module>
 		<module>hazelcast-desktop-core</module>
 		<module>hazelcast-desktop-deployment</module>
 	</modules>

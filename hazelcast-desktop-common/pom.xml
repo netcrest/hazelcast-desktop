@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.netcrest.pado</groupId>
 		<artifactId>hazelcast-desktop-parent</artifactId>
-		<version>0.1.9</version>
+		<version>0.1.10</version>
 	</parent>
 
 	<artifactId>hazelcast-desktop-common</artifactId>
@@ -16,7 +16,17 @@
 	<name>hazelcast-desktop-common</name>
 	<description>Hazelcast Desktop Common package</description>
 
-	<url>http://maven.apache.org</url>
+	<url>https://maven.apache.org</url>
+	<repositories>
+        <repository>
+            <id>jnlp</id>
+            <url>http://java.freehep.org/maven2/</url>
+        </repository>
+        <repository>
+            <id>gemfire</id>
+            <url>https://repo.spring.io/plugins-release/</url>
+        </repository>
+    </repositories>
 
 	<!-- NOTE: hazelcast-addon is not available for the public. It must be obtained 
 		from Hazelcast by contacting the Hazelcast Consulting team. See README.md 
@@ -25,7 +35,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
-		<gemfire.version>8.2.0</gemfire.version>
+		<gemfire.version>8.2.1</gemfire.version>
 	</properties>
 
 	<dependencies>

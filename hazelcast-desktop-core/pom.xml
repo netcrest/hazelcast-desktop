@@ -8,7 +8,7 @@
 	<parent>
 		<groupId>com.netcrest.pado</groupId>
 		<artifactId>hazelcast-desktop-parent</artifactId>
-		<version>0.1.9</version>
+		<version>0.1.10</version>
 	</parent>
 
 	<artifactId>hazelcast-desktop-core</artifactId>
@@ -16,7 +16,7 @@
 	<name>hazelcast-desktop-core</name>
 	<description>Hazelcast Desktop core package</description>
 
-	<url>http://maven.apache.org</url>
+	<url>https://maven.apache.org</url>
 
 	<!-- NOTE: hazelcast-addon is not available for the public. It must be obtained
 	from Hazelcast by contacting the Hazelcast Consulting team. See README.md for details. -->
@@ -32,13 +32,13 @@
 		<repository>
 			<id>gemfire-repository</id>
 			<name>Gemfire Repository</name>
-			<url>http://dist.gemstone.com/maven/release</url>
+			<url>https://dist.gemstone.com/maven/release</url>
 		</repository>
 		<!--
 		<repository>
 			<id>substance-repository</id>
 			<name>Substance LAF</name>
-			<url>http://maven.icm.edu.pl/artifactory/repo/</url>
+			<url>https://maven.icm.edu.pl/artifactory/repo/</url>
 		</repository>
 		-->
 	</repositories>

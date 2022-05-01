@@ -1,7 +1,15 @@
 # Hazelcast-Desktop
 
-©2019-2021 Netcrest Technologies, LLC. All rights reserved.
+©2019-2022 Netcrest Technologies, LLC. All rights reserved.
 https://github.com/netcrest/hazelcast-desktop
+
+## Version 0.1.10
+
+### Release Date: 05/01/2022
+
+- Added v5 module in prepartion for the new SQL support in 5.x.
+
+----
 
 ## Version 0.1.9
 
