@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.netcrest.pado</groupId>
 		<artifactId>hazelcast-desktop-parent</artifactId>
-		<version>0.1.10</version>
+		<version>0.1.11-SNAPSHOT</version>
 	</parent>
 	<artifactId>hazelcast-desktop-deployment</artifactId>
 	<name>hazelcast-desktop-deployment</name>
@@ -30,6 +30,11 @@
  		<dependency>
 			<groupId>padogrid.addon</groupId>
 			<artifactId>hazelcast-addon-core-4</artifactId>
+			<version>${padogrid.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>padogrid.addon</groupId>
+			<artifactId>hazelcast-addon-core-5</artifactId>
 			<version>${padogrid.version}</version>
 		</dependency>
 	</dependencies>
