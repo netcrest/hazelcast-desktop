@@ -32,6 +32,17 @@
 				<unpack>false</unpack>
 			</binaries>
 		</moduleSet>
+		<moduleSet>
+			<useAllReactorProjects>true</useAllReactorProjects>
+			<includes>
+				<include>*:hazelcast-desktop-imdg-5</include>
+			</includes>
+			<binaries>
+				<includeDependencies>false</includeDependencies>
+				<outputDirectory>lib/v5/</outputDirectory>
+				<unpack>false</unpack>
+			</binaries>
+		</moduleSet>
 	</moduleSets>
 	
 	<dependencySets>
@@ -93,6 +104,13 @@
 				<include>padogrid.addon:hazelcast-addon-core-4</include>
 			</includes>
 			<outputDirectory>lib/v4</outputDirectory>
+		</dependencySet>
+		<dependencySet>
+			<useProjectArtifact>false</useProjectArtifact>
+			<includes>
+				<include>padogrid.addon:hazelcast-addon-core-5</include>
+			</includes>
+			<outputDirectory>lib/v5</outputDirectory>
 		</dependencySet>
 
 	</dependencySets>

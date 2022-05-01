@@ -32,6 +32,11 @@
 			<artifactId>hazelcast-addon-core-4</artifactId>
 			<version>${padogrid.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>padogrid.addon</groupId>
+			<artifactId>hazelcast-addon-core-5</artifactId>
+			<version>${padogrid.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
