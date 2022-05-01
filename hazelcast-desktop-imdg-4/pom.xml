@@ -24,7 +24,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
-		<hazelcast.version>4.0-BETA-1</hazelcast.version>
+		<hazelcast.version>4.2</hazelcast.version>
 		<gemfire.version>8.2.0</gemfire.version>
 		<skipTests>true</skipTests>
 	</properties>
