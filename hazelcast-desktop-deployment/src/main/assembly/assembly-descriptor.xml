@@ -49,10 +49,11 @@
 		<dependencySet>
 <!-- 			<useProjectArtifact>false</useProjectArtifact>
  -->			<excludes>
-				<!-- Remove hazelcast-all jars. Required jars
-				     are hazelcast and hazelcast-client. -->
+				<!-- Remove all hazelcast jars -->
 				<exclude>com.hazelcast:hazelcast-all</exclude>
 				<exclude>com.hazelcast:hazelcast-enterprise-all</exclude>
+				<exclude>com.hazelcast:hazelcast-enterprise</exclude>
+				<exclude>com.hazelcast:hazelcast</exclude>
 				<exclude>com.netcrest.pado:*</exclude>
 				<exclude>padogrid.addon:*</exclude>
 				<exclude>antlr:antlr</exclude>
