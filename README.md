@@ -27,13 +27,13 @@ You must first download and build PadoGrid. Hazelcast Desktop depends on PadoGri
 
 **PadoGrid Repo:** [https://github.com/padogrid/padogrid](https://github.com/padogrid/padogrid). 
 
-Once the PadoGrid libary has been built and installed in your local Maven repository, edit the `pom.xml` file in the root (parent) directory to include the correct version number for `<padogrid.version>`. For example, the following includes version 0.9.1 in the `pom.xml` file.
+Once the PadoGrid libary has been built and installed in your local Maven repository, edit the `pom.xml` file in the root (parent) directory to include the correct version number for `<padogrid.version>`. For example, the following includes version 0.9.14 in the `pom.xml` file.
 
 ```xml
 <!-- In pom.xml (root directory) -->
 <properties>
    ...
-   <padogrid.version>0.9.1</padogrid.version>
+   <padogrid.version>0.9.14</padogrid.version>
 </properties>
 ```
 
@@ -53,8 +53,8 @@ tree hazelcast-desktop-deployment/target/assembly
 
 ```console
 hazelcast-desktop-deployment/target/assembly
-├── hazelcast-desktop_0.1.6-SNPASHOT.tar.gz
-└── hazelcast-desktop_0.1.6-SNPASHOT.zip
+├── hazelcast-desktop_0.1.11-SNPASHOT.tar.gz
+└── hazelcast-desktop_0.1.11-SNPASHOT.zip
 ```
 
 #### Installing Hazelcast Desktop
@@ -68,7 +68,7 @@ Hazelcast Desktop runs on Java 1.8 or later versions.
 
 ## Hazelcast Versions
 
-Hazelcast Desktop supports Hazelcast 3.x and 4.x. It has been tested with Hazelcast 3.12.x and 4.0.
+Hazelcast Desktop supports Hazelcast 3.x and 4.x. It has been tested with Hazelcast 3.12.x, 4.x, and 5.x.
 
 
 ## Running Hazelcast Desktop
@@ -85,7 +85,7 @@ Place all the application specific jar files in the `plugins/` directory, which 
 
 ### Linux/macOS
 
-If you are running Hazelcast Desktop as a standalone and not as a desktop app in a `hazelcast-addon` workspace, then you must set the environment variables in `bin_win\setenv.sh`.
+If you are running Hazelcast Desktop as a standalone and not as a desktop app in a `hazelcast-addon` workspace, then you must set the environment variables in `bin_sh/setenv.sh`.
 
 - HAZELCAST_HOME
 - PADOGRID_HOME
