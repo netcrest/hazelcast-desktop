@@ -161,8 +161,8 @@
 				<include>license/**</include>
 				<include>LICENSE.txt</include>
 				<include>NOTICE</include>
-				<include>README.txt</include>
-				<include>RELEASE_NOTES.txt</include>
+				<include>README.md</include>
+				<include>RELEASE_NOTES.md</include>
 			</includes>
 			<outputDirectory>.</outputDirectory>
 		</fileSet>
