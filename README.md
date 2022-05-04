@@ -1,6 +1,6 @@
 # Hazelcast Desktop
 
-©2019 Netcrest Technologies, LLC. All rights reserved.
+©2019-2022 Netcrest Technologies, LLC. All rights reserved.
 
 ## Introduction
 
