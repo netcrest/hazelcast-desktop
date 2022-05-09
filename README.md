@@ -136,3 +136,7 @@ Hazelcast Desktop is comprised of GUI components (Java Beans) displayed by the P
 ## Saving Screens
 
 Hazelcast Destop automatically saves the screen when it terminates such that it is reinstated when you restart it next time. You can also save the screen by selecting the pulldown menu, `File/Save As...` Note that Hazelcast Destkop uses the file extension `.desktop`.
+
+## Screenshot
+
+![Desktop Screenshot](https://github.com/padogrid/padogrid/raw/develop/images/desktop-screenshot.png)
