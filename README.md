@@ -15,9 +15,16 @@ You can install Hazelcast Desktop as a PadoGrid app or a standalone app.
 
 ### As PadoGrid App
 
-Install the desktop app by running the PadoGrid's `create_app` as follows:
+1. Download, install and update Hazelcast Desktop
 
-```console
+```bash
+install_padogrid -product desktop
+update_padogrid -product desktop
+```
+
+2. Create a desktop app environment by running `create_app` as follows.
+
+```bash
 create_app -app desktop
 ```
 
@@ -26,6 +33,8 @@ create_app -app desktop
 1. Download the latest binary distribution from the [Releases](https://github.com/netcrest/hazelcast-desktop/releases) link.
 2. Inflate the downloaded file (`hazelcast-desktop_<version>.tar.gz` or `hazelcast-desktop_<version>.zip`) anywhere in the file system. It will create the `hazelcast-desktop_<version>` root directory.
 3. Edit `bin_win\setenv.bat` or `bin_sh/setenv.sh` to include the correct paths for `JAVA_HOME` and `CODEBASE_URL`.
+
+:exclamation: **The path set for `CODEBAS_URL` must end with `/` (slash).**
 
 ## Building Hazelcast Desktop
 
