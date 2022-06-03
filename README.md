@@ -34,7 +34,7 @@ create_app -app desktop
 2. Inflate the downloaded file (`hazelcast-desktop_<version>.tar.gz` or `hazelcast-desktop_<version>.zip`) anywhere in the file system. It will create the `hazelcast-desktop_<version>` root directory.
 3. Edit `bin_win\setenv.bat` or `bin_sh/setenv.sh` to include the correct paths for `JAVA_HOME` and `CODEBASE_URL`.
 
-:exclamation: **The path set for `CODEBAS_URL` must end with `/` (slash).**
+:exclamation: *The path set for `CODEBAS_URL` must end with `/` (slash).*
 
 ## Building Hazelcast Desktop
 
