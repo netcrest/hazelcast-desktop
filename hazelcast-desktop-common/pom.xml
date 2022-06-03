@@ -28,9 +28,6 @@
         </repository>
     </repositories>
 
-	<!-- NOTE: hazelcast-addon is not available for the public. It must be obtained 
-		from Hazelcast by contacting the Hazelcast Consulting team. See README.md 
-		for details. -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.target>1.8</maven.compiler.target>
