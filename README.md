@@ -123,8 +123,8 @@ cd hazelcast-desktop_<version>/bin_sh
 Edit `bin_win\setenv.bat` and set the following environment variables:
 
 - `HAZELCAST_HOME`
-- `ADOGRID_HOME`
-- `AZELCAST_MAJOR_VERSION_NUMBER`
+- `PADOGRID_HOME`
+- `HAZELCAST_MAJOR_VERSION_NUMBER`
 - `JAVA_HOME`
 
 The following steps creates the Hazelcast Desktop shortcut on Windows.
