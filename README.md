@@ -23,7 +23,13 @@ create_app -app desktop
 
 ### As Standalone App
 
-You must first download and build PadoGrid. Hazelcast Desktop depends on PadoGrid's Hazelcast addon library.
+1. Download the latest binary distribution from the [Releases](https://github.com/netcrest/hazelcast-desktop/releases) link.
+2. Inflate the downloaded file (`hazelcast-desktop_<version>.tar.gz` or `hazelcast-desktop_<version>.zip`) anywhere in the file system. It will create the `hazelcast-desktop_<version>` root directory.
+3. Edit `bin_win\setenv.bat` or `bin_sh/setenv.sh` to include the correct paths for `JAVA_HOME` and `CODEBASE_URL`.
+
+## Building Hazelcast Desktop
+
+Hazelcast Desktop depends on PadoGrid's Hazelcast addon library.
 
 **PadoGrid Repo:** [https://github.com/padogrid/padogrid](https://github.com/padogrid/padogrid). 
 
@@ -57,18 +63,13 @@ hazelcast-desktop-deployment/target/assembly
 └── hazelcast-desktop_0.1.11-SNPASHOT.zip
 ```
 
-#### Installing Hazelcast Desktop
-
-1. Unzip the `hazelcast-desktop_<version>.zip` file anywhere in the file system. It will create the `hazelcast-desktop_<version>` root directory.
-2. Edit `bin_win\setenv.bat` or `bin_sh/setenv.sh` to include the correct paths for **JAVA_HOME** and **CODEBASE_URL**.
-
 ## Java Versions
 
 Hazelcast Desktop runs on Java 1.8 or later versions.
 
 ## Hazelcast Versions
 
-Hazelcast Desktop supports Hazelcast 3.x and 4.x. It has been tested with Hazelcast 3.12.x, 4.x, and 5.x.
+Hazelcast Desktop supports Hazelcast 3.x, 4.x, 5.x. It has been tested with Hazelcast 3.12.x, 4.x, and 5.x.
 
 
 ## Running Hazelcast Desktop
@@ -83,17 +84,28 @@ hazelcast.client.config.file.enabled=true
 
 Place all the application specific jar files in the `plugins/` directory, which is part of `CLASSPATH`.
 
-### Linux/macOS
+### Linux/macOS/Cygwin
 
-If you are running Hazelcast Desktop as a standalone and not as a desktop app in a `hazelcast-addon` workspace, then you must set the environment variables in `bin_sh/setenv.sh`.
+#### As PadoGrid App
 
-- HAZELCAST_HOME
-- PADOGRID_HOME
-- HAZELCAST_MAJOR_VERSION_NUMBER
-- JAVA_HOME
+If you have installed Hazelcast Desktop as a PadoGrid app as described in the [As PadoGrid App](#as-padogrid-app) section, then you are ready to go.
+
+```bash
+cd_app desktop/bin_sh
+./desktop
+```
+
+#### As Standalone App
+
+If you have installed Hazelcast Desktop as a standalone app as described in the [As Standalone App](#as-standalone-app) section, then you must set the environment variables in `bin_sh/setenv.sh`.
+
+- `HAZELCAST_HOME`
+- `PADOGRID_HOME`
+- `HAZELCAST_MAJOR_VERSION_NUMBER`
+- `JAVA_HOME`
 
 ```console
-cd bin_sh
+cd hazelcast-desktop_<version>/bin_sh
 ./desktop
 ```
 
@@ -101,15 +113,15 @@ cd bin_sh
 
 Edit `bin_win\setenv.bat` and set the following environment variables:
 
-- HAZELCAST_HOME
-- PADOGRID_HOME
-- HAZELCAST_MAJOR_VERSION_NUMBER
-- JAVA_HOME
+- `HAZELCAST_HOME`
+- `ADOGRID_HOME`
+- `AZELCAST_MAJOR_VERSION_NUMBER`
+- `JAVA_HOME`
 
 The following steps creates the Hazelcast Desktop shortcut on Windows.
 
 ```console
-cd bin_win
+cd hazelcast-desktop_<version>/bin_win
 create_shortcut.bat
 ```
 
