@@ -16,7 +16,7 @@
 	<artifactId>hazelcast-desktop-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>hazelcast-desktop-parent</name>
-	<version>0.1.13-SNAPSHOT</version>
+	<version>0.1.13</version>
 	<description>Hazelcast NAF (Pado) Desktop</description>
 
 	<properties>
@@ -24,7 +24,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<hazelcast-desktop.version>${project.version}</hazelcast-desktop.version>
-		<padogrid.version>0.9.19</padogrid.version>
+		<padogrid.version>0.9.28</padogrid.version>
 		<pado.version>0.4.3-B1</pado.version>
 		<skipTests>true</skipTests>
 	</properties>
