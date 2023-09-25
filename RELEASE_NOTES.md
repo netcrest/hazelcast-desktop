@@ -3,6 +3,14 @@
 ©2019-2023 Netcrest Technologies, LLC. All rights reserved.
 https://github.com/netcrest/hazelcast-desktop
 
+## Version 0.1.14-SNAPSHOT
+
+### Release Date: 09/25/2023
+
+- Initial snapshot.
+
+---
+
 ## Version 0.1.13
 
 ### Release Date: 09/25/2023
